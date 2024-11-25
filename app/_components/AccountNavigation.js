@@ -1,12 +1,21 @@
 "use client";
 import {
-  CalendarDaysIcon,
   HomeIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
+  ClipboardDocumentListIcon,
+  UserPlusIcon,
+} from "@heroicons/react/24/outline";
 import SignOutButton from "./SignOutButton";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import styled from "styled-components";
+
+const StyledLink = styled(Link)`
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
 
 const navLinks = [
   {
@@ -17,12 +26,12 @@ const navLinks = [
   {
     name: "My shopping categories",
     href: "/account/categories",
-    icon: <CalendarDaysIcon />,
+    icon: <ClipboardDocumentListIcon />,
   },
   {
     name: "Shares",
     href: "/account/shares",
-    icon: <UserIcon />,
+    icon: <UserPlusIcon />,
   },
 ];
 
@@ -34,7 +43,7 @@ function AccountNavigation() {
       <ul>
         {navLinks.map((link) => (
           <li key={link.name}>
-            <Link
+            <StyledLink
               className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 ${
                 pathname === link.href ? "bg-primary-900" : ""
               }`}
@@ -42,7 +51,7 @@ function AccountNavigation() {
             >
               {link.icon}
               <span>{link.name}</span>
-            </Link>
+            </StyledLink>
           </li>
         ))}
 
