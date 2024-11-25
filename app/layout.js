@@ -1,17 +1,19 @@
 import "./globals.css";
 import StyledComponentsRegistry from "./_lib/registry";
 import Navigation from "./_components/Navigation";
+import { auth } from "./_lib/auth";
 
 export const metadata = {
   title: "Audio List App",
   description: "Allows to create and manage shopping lists with your voice",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await auth();
   return (
     <html lang="en">
       <body>
-        <Navigation />
+        {session?.user && <Navigation />}
         <main>
           <StyledComponentsRegistry> {children}</StyledComponentsRegistry>
         </main>

@@ -1,19 +1,13 @@
-import Link from "next/link";
 import { auth } from "./_lib/auth";
+import { redirect } from "next/navigation";
+import HomeIntro from "./_components/HomeIntro";
 
 export default async function Home() {
   const session = await auth();
 
-  return (
-    <>
-      {session?.user ? (
-        <div>Hello! It is our Start screen</div>
-      ) : (
-        <div>
-          Please login first to use Audio List App
-          <Link href="/login">Log in</Link>
-        </div>
-      )}
-    </>
-  );
+  if (session?.user) {
+    redirect("/home");
+  }
+
+  return <HomeIntro />;
 }

@@ -9,11 +9,11 @@ export default async function Navigation() {
         <li>
           <Link href="/">Logo</Link>
         </li>
-        {session?.user && (
+        {/* {session?.user && (
           <li>
             <Link href="/categories">Categories</Link>
           </li>
-        )}
+        )} */}
         <li>
           {session?.user?.image && (
             <Link href="/account">
