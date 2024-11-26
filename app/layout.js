@@ -13,7 +13,9 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {session?.user && <Navigation />}
+        {session?.user && (
+          <Navigation image={session.user.image} name={session.user.name} />
+        )}
         <main>
           <StyledComponentsRegistry> {children}</StyledComponentsRegistry>
         </main>

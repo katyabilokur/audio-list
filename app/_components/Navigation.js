@@ -1,32 +1,37 @@
+"use client";
 import Link from "next/link";
-import { auth } from "../_lib/auth";
+import styled from "styled-components";
 
-export default async function Navigation() {
-  const session = await auth();
+const NavigationBar = styled.nav`
+  background-color: rosybrown;
+`;
+
+const NavigationMenu = styled.ul`
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+
+  img {
+    border-radius: 100px;
+    height: 2rem;
+  }
+`;
+
+export default function Navigation({ image, name }) {
   return (
-    <nav>
-      <ul>
+    <NavigationBar>
+      <NavigationMenu>
         <li>
           <Link href="/">Logo</Link>
         </li>
-        {/* {session?.user && (
-          <li>
-            <Link href="/categories">Categories</Link>
-          </li>
-        )} */}
+        <li>My List</li>
         <li>
-          {session?.user?.image && (
-            <Link href="/account">
-              <img
-                src={session.user.image}
-                alt={session.user.name}
-                referrerPolicy="no-referrer"
-              />
-              <span>My account</span>
-            </Link>
-          )}
+          <Link href="/account">
+            <img src={image} alt={name} referrerPolicy="no-referrer" />
+            <span>My account</span>
+          </Link>
         </li>
-      </ul>
-    </nav>
+      </NavigationMenu>
+    </NavigationBar>
   );
 }

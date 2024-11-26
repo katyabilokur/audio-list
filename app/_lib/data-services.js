@@ -1,11 +1,40 @@
 import { supabase } from "./supabase";
 
+//Test function to get all Categories
 export const getCategories = async function () {
   const { data, error } = await supabase.from("categories").select();
 
   if (error) {
     console.error(error);
     throw new Error("Shopping categories could not be loaded");
+  }
+
+  return data;
+};
+
+//Get a category list with details of all categories user have items in
+export const getActiveCategories = async function (categories) {
+  const { data, error } = await supabase
+    .from("categories")
+    .select("id,name")
+    .in("id", categories);
+
+  if (error) {
+    throw new Error("Category details could not be loaded");
+  }
+
+  return data;
+};
+
+//Load all items for a certain user
+export const getUserItems = async function (userId) {
+  const { data, error } = await supabase
+    .from("items")
+    .select("*")
+    .eq("userId", userId);
+
+  if (error) {
+    throw new Error(`Shopping items for user ${userId} cannot be loaded`);
   }
 
   return data;
