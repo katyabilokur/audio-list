@@ -96,7 +96,7 @@ const AudioRecorder = () => {
             <h4>Recording in progress</h4>
             <RecordButton
               onClick={stopRecording}
-              classToAdd="bg-rose-600 hover:bg-rose-500 "
+              classToAdd="bg-rose-600 hover:bg-rose-500 before:animate-beat_before after:animate-beat_after"
             >
               <StopIcon className="h-8 w-8" />
             </RecordButton>
