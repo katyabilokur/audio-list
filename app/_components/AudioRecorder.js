@@ -1,5 +1,11 @@
 "use client";
 import { useState, useRef } from "react";
+import RecordButton from "./RecordButton";
+import {
+  LockClosedIcon,
+  MicrophoneIcon,
+  StopIcon,
+} from "@heroicons/react/24/solid";
 
 const mimeType = "audio/webm";
 
@@ -62,35 +68,50 @@ const AudioRecorder = () => {
 
   return (
     <div>
-      <h2>Audio Recorder</h2>
-      <main>
-        <div className="audio-controls">
-          {!permission ? (
-            <button onClick={getMicrophonePermission} type="button">
-              Get Microphone
-            </button>
-          ) : null}
-          {permission && recordingStatus === "inactive" ? (
-            <button onClick={startRecording} type="button">
-              Start Recording
-            </button>
-          ) : null}
-          {recordingStatus === "recording" ? (
-            <button onClick={stopRecording} type="button">
-              Stop Recording
-            </button>
-          ) : null}
+      <div className="audio-controls">
+        {!permission ? (
+          <>
+            <h4>Please get permissions to use your microphone</h4>
+            <RecordButton
+              onClick={getMicrophonePermission}
+              classToAdd="bg-amber-500 hover:bg-amber-400"
+            >
+              <LockClosedIcon className="h-8 w-8" />
+            </RecordButton>
+          </>
+        ) : null}
+        {permission && recordingStatus === "inactive" ? (
+          <>
+            <h4>Start recording your shopping list</h4>
+            <RecordButton
+              onClick={startRecording}
+              classToAdd="bg-green-500 hover:bg-green-400 "
+            >
+              <MicrophoneIcon className="h-8 w-8" />
+            </RecordButton>
+          </>
+        ) : null}
+        {recordingStatus === "recording" ? (
+          <>
+            <h4>Recording in progress</h4>
+            <RecordButton
+              onClick={stopRecording}
+              classToAdd="bg-rose-600 hover:bg-rose-500 "
+            >
+              <StopIcon className="h-8 w-8" />
+            </RecordButton>
+          </>
+        ) : null}
 
-          {audio ? (
-            <div className="audio-container">
-              {/* <audio src={audio} controls></audio> */}
-              <a download href={audio}>
-                Download Recording
-              </a>
-            </div>
-          ) : null}
-        </div>
-      </main>
+        {audio ? (
+          <div className="audio-container">
+            {/* <audio src={audio} controls></audio> */}
+            <a download href={audio}>
+              Download Recording
+            </a>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };

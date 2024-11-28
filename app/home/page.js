@@ -1,4 +1,4 @@
-import RecordButton from "../_components/RecordButton";
+import AudioRecorder from "../_components/AudioRecorder";
 import ShoppingLists from "../_components/ShoppingLists";
 import { auth } from "../_lib/auth";
 import { getActiveCategories, getUserItems } from "../_lib/data-services";
@@ -16,11 +16,9 @@ export default async function Home() {
   const categories = await getActiveCategories(catList);
 
   return (
-    <>
-      <h2>My shopping lists</h2>
-
+    <div className="flex flex-col h-full justify-between">
       <ShoppingLists categories={categories} items={items} />
-      <RecordButton />
-    </>
+      <AudioRecorder className="mt-auto" />
+    </div>
   );
 }

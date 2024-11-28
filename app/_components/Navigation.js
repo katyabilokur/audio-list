@@ -2,16 +2,16 @@ import Link from "next/link";
 
 export default function Navigation({ image, name }) {
   return (
-    <nav className="bg-red-400">
+    <nav className="bg-red-400 h-20">
       <ul className="flex justify-evenly list-none">
         <li>
           <Link href="/">Logo</Link>
         </li>
         <li>My List</li>
         <li>
-          <Link href="/account">
+          <Link className="flex gap-2" href="/account">
             <img
-              className="rounded-full h-20"
+              className="rounded-full h-10"
               src={image}
               alt={name}
               referrerPolicy="no-referrer"

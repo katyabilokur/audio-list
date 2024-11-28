@@ -2,20 +2,32 @@ import "@/app/_styles/globals.css";
 import Navigation from "./_components/Navigation";
 import { auth } from "./_lib/auth";
 
+import { Poppins } from "next/font/google";
+
+const font = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
 export const metadata = {
-  title: "Audio List App",
-  description: "Allows to create and manage shopping lists with your voice",
+  title: {
+    template: "%s / Audio List",
+    default: "Welcome / Audio List",
+  },
+  description: "Create and manage your shopping lists with your voice",
 };
 
 export default async function RootLayout({ children }) {
   const session = await auth();
   return (
     <html lang="en">
-      <body>
+      <body
+        className={`${font.className} antialiased min-h-screen bg-primary-950 text-primary-100 flex flex-col`}
+      >
         {session?.user && (
           <Navigation image={session.user.image} name={session.user.name} />
         )}
-        <main>{children}</main>
+        <main className="h-[calc(100vh-5rem)]">{children}</main>
       </body>
     </html>
   );

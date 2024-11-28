@@ -5,7 +5,7 @@ function SignOutButton() {
   return (
     <form action={signOutAction}>
       <button>
-        <ArrowRightStartOnRectangleIcon />
+        <ArrowRightStartOnRectangleIcon className="h-5" />
         <span>Sign out</span>
       </button>
     </form>
