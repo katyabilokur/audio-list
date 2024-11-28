@@ -1,5 +1,4 @@
 
-import TestTitle from "@/app/_components/TestTitle";
 import { getCategories } from "@/app/_lib/data-services";
 
 
@@ -12,7 +11,6 @@ export default async function Categories() {
 
   return (
     <>
-      <TestTitle />
       <ul>
         {categories.map((category) => (
           <li key={category.name}>{category.name}</li>

@@ -1,5 +1,4 @@
-import "./globals.css";
-import StyledComponentsRegistry from "./_lib/registry";
+import "@/app/_styles/globals.css";
 import Navigation from "./_components/Navigation";
 import { auth } from "./_lib/auth";
 
@@ -16,9 +15,7 @@ export default async function RootLayout({ children }) {
         {session?.user && (
           <Navigation image={session.user.image} name={session.user.name} />
         )}
-        <main>
-          <StyledComponentsRegistry> {children}</StyledComponentsRegistry>
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );

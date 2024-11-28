@@ -1,5 +1,11 @@
+import AudioRecorder from "./AudioRecorder";
+
 function RecordButton() {
-  return <div>RecordButton</div>;
+  return (
+    <div>
+      <AudioRecorder />
+    </div>
+  );
 }
 
 export default RecordButton;
