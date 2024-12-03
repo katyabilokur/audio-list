@@ -7,20 +7,19 @@ module.exports = {
   ],
   theme: {
     extend: {
-      theme: {
-        extend: {
-          keyframes: {
-            beat: {
-              "0%": { opacity: 0.8, transform: "scale(1)" },
-              "70%": { opacity: 0, transform: "scale(1.5)" },
-              "100%": { opacity: 0 },
-            },
-          },
-          animation: {
-            beat_before: "beat 1.5s ease-out infinite",
-            beat_after: "beat 1.5s ease-out .4s infinite",
-          },
+      spacing: {
+        160: "40rem",
+      },
+      keyframes: {
+        beat: {
+          "0%": { opacity: 0.6, transform: "scale(1)" },
+          "70%": { opacity: 0, transform: "scale(1.5)" },
+          "100%": { opacity: 0 },
         },
+      },
+      animation: {
+        "beat-one": "beat 1.5s ease-out infinite",
+        "beat-two": "beat 1.5s ease-out .4s infinite",
       },
     },
   },

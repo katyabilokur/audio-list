@@ -6,6 +6,7 @@ import {
   MicrophoneIcon,
   StopIcon,
 } from "@heroicons/react/24/solid";
+import { uploadFileToStorage } from "../_lib/helpers";
 
 const mimeType = "audio/webm";
 
@@ -52,13 +53,17 @@ const AudioRecorder = () => {
     setAudioChunks(localAudioChunks);
   };
 
-  const stopRecording = () => {
+  const stopRecording = async () => {
     setRecordingStatus("inactive");
     //stops the recording instance
     mediaRecorder.current.stop();
-    mediaRecorder.current.onstop = () => {
+    mediaRecorder.current.onstop = async () => {
       //creates a blob file from the audiochunks data
       const audioBlob = new Blob(audioChunks, { type: mimeType });
+
+      const publicUrl = await uploadFileToStorage(audioBlob);
+      console.log(publicUrl);
+
       //creates a playable URL from the blob file.
       const audioUrl = URL.createObjectURL(audioBlob);
       setAudio(audioUrl);
@@ -68,7 +73,7 @@ const AudioRecorder = () => {
 
   return (
     <div>
-      <div className="audio-controls">
+      <div className="audio-controls h-100 w-100">
         {!permission ? (
           <>
             <h4>Please get permissions to use your microphone</h4>
@@ -94,11 +99,14 @@ const AudioRecorder = () => {
         {recordingStatus === "recording" ? (
           <>
             <h4>Recording in progress</h4>
+
             <RecordButton
               onClick={stopRecording}
-              classToAdd="bg-rose-600 hover:bg-rose-500 before:animate-beat_before after:animate-beat_after"
+              classToAdd="relative flex bg-rose-500 hover:bg-rose-600"
             >
-              <StopIcon className="h-8 w-8" />
+              <span className="animate-beat-one absolute inline-flex h-full w-full rounded-full bg-rose-500"></span>
+              <span className="animate-beat-two absolute inline-flex h-full w-full rounded-full bg-rose-500"></span>
+              <StopIcon className="h-8 w-8 absolute inline-flex" />
             </RecordButton>
           </>
         ) : null}
