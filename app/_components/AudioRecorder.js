@@ -6,7 +6,7 @@ import {
   MicrophoneIcon,
   StopIcon,
 } from "@heroicons/react/24/solid";
-import { uploadFileToStorage } from "../_lib/helpers";
+import { transcribeAudio, uploadFileToStorage } from "../_lib/helpers";
 
 const mimeType = "audio/webm";
 
@@ -61,8 +61,13 @@ const AudioRecorder = () => {
       //creates a blob file from the audiochunks data
       const audioBlob = new Blob(audioChunks, { type: mimeType });
 
-      const publicUrl = await uploadFileToStorage(audioBlob);
-      console.log(publicUrl);
+      const url = await uploadFileToStorage(audioBlob);
+      if (url.publicUrl) {
+        console.log(url.publicUrl);
+        const recordedText = await transcribeAudio(url.publicUrl);
+        console.log("Recorded text");
+        console.log(recordedText);
+      }
 
       //creates a playable URL from the blob file.
       const audioUrl = URL.createObjectURL(audioBlob);
