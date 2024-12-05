@@ -23,10 +23,12 @@ export async function POST(request) {
 
   if (transcript.status === "error") {
     console.error(`Transcription failed: ${transcript.error}`);
-    return NextResponse.json({
-      error: `Transcription request failed with error: ${transcript.error}`,
-      status: 500,
-    });
+    return NextResponse.json(
+      {
+        error: `Transcription request failed with error: ${transcript.error}`,
+      },
+      { status: 500 }
+    );
   }
 
   return NextResponse.json(transcript.text);

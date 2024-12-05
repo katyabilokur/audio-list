@@ -6,7 +6,11 @@ import {
   MicrophoneIcon,
   StopIcon,
 } from "@heroicons/react/24/solid";
-import { transcribeAudio, uploadFileToStorage } from "../_lib/helpers";
+import {
+  structureText,
+  transcribeAudio,
+  uploadFileToStorage,
+} from "../_lib/helpers";
 
 const mimeType = "audio/webm";
 
@@ -61,13 +65,22 @@ const AudioRecorder = () => {
       //creates a blob file from the audiochunks data
       const audioBlob = new Blob(audioChunks, { type: mimeType });
 
-      const url = await uploadFileToStorage(audioBlob);
-      if (url.publicUrl) {
-        console.log(url.publicUrl);
-        const recordedText = await transcribeAudio(url.publicUrl);
-        console.log("Recorded text");
-        console.log(recordedText);
-      }
+      //TODO: uncomment when finished testing of part 3
+      // const url = await uploadFileToStorage(audioBlob);
+      // if (url.publicUrl) {
+      //   console.log(url.publicUrl);
+      //   const recordedText = await transcribeAudio(url.publicUrl);
+      //   console.log("Recorded text");
+      //   console.log(recordedText);
+      // }
+
+      //Part 3. TODO: move up.
+      //text to object
+      const recordedText =
+        "One pack of potato, one big sweet potato, two packs of berries, one kilos of banana and some veggies, big milk 2 liters, 2 soap bottles";
+      console.log(recordedText);
+      const csvText = await structureText(recordedText);
+      console.log(csvText);
 
       //creates a playable URL from the blob file.
       const audioUrl = URL.createObjectURL(audioBlob);

@@ -7,11 +7,11 @@ export async function uploadFileToStorage(audioBlob) {
     body: formData,
   });
 
-  const data = await response.json();
-
   if (!response.ok) {
     console.error("File upload failed:", data.error);
   }
+
+  const data = await response.json();
 
   return data.publicUrl;
 }
@@ -25,11 +25,28 @@ export async function transcribeAudio(publicUrl) {
     body: JSON.stringify({ audioUrl: publicUrl }),
   });
 
-  const data = await response.json();
-
   if (!response.ok) {
     console.error("Transcription failed:", data.error || "Unknown error");
   }
 
+  const data = await response.json();
+
   return data;
+}
+
+export async function structureText(text) {
+  const response = await fetch("/api/structure-text", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to process the text");
+  }
+
+  const data = await response.json();
+  console.log(data);
+
+  return data.csv;
 }
