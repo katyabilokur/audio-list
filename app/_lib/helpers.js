@@ -46,7 +46,24 @@ export async function structureText(text) {
   }
 
   const data = await response.json();
-  console.log(data);
 
   return data.csv;
+}
+
+export async function insertNewItems(csvItemsText, userId) {
+  const response = await fetch("/api/insert-items", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ csvItemsText, userId }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to insert items");
+  }
+
+  const result = await response.json();
+
+  return result.data;
 }

@@ -7,6 +7,7 @@ import {
   StopIcon,
 } from "@heroicons/react/24/solid";
 import {
+  insertNewItems,
   structureText,
   transcribeAudio,
   uploadFileToStorage,
@@ -14,7 +15,7 @@ import {
 
 const mimeType = "audio/webm";
 
-const AudioRecorder = () => {
+const AudioRecorder = ({userId}) => {
   const [permission, setPermission] = useState(false);
   const [stream, setStream] = useState(null);
 
@@ -70,17 +71,23 @@ const AudioRecorder = () => {
       // if (url.publicUrl) {
       //   console.log(url.publicUrl);
       //   const recordedText = await transcribeAudio(url.publicUrl);
-      //   console.log("Recorded text");
-      //   console.log(recordedText);
+      //   const csvText = await structureText(recordedText);
       // }
 
       //Part 3. TODO: move up.
-      //text to object
-      const recordedText =
-        "One pack of potato, one big sweet potato, two packs of berries, one kilos of banana and some veggies, big milk 2 liters, 2 soap bottles";
-      console.log(recordedText);
-      const csvText = await structureText(recordedText);
-      console.log(csvText);
+      // //text to object
+      // const recordedText =
+      //   "One pack of potato, one big sweet potato, two packs of berries, one kilos of banana and some veggies, big milk 2 liters, 2 soap bottles";
+      // console.log(recordedText);
+      // const csvText = await structureText(recordedText);
+      // console.log(csvText);
+
+      //Part 4.
+      //save to DB
+      const csvText =
+        "grocery,1,pack,potato,\ngrocery,1,,sweet potato,big\ngrocery,2,pack,berries,\ngrocery,1,kilos,banana,some veggies\ngrocery,2,l,milk,big\nhousehold,2,,soap bottles,";
+      const insertedItems = await insertNewItems(csvText, userId);
+      console.log(insertedItems);
 
       //creates a playable URL from the blob file.
       const audioUrl = URL.createObjectURL(audioBlob);

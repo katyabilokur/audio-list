@@ -18,7 +18,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col h-full justify-between">
       <ShoppingLists categories={categories} items={items} />
-      <AudioRecorder className="mt-auto" />
+      <AudioRecorder className="mt-auto" userId={curUserId} />
     </div>
   );
 }
