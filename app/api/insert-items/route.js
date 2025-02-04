@@ -19,7 +19,7 @@ export async function POST(request) {
     newItems.push({
       userId: userId,
       categoryId: categories.get(itemRow[0]),
-      quantity: itemRow[1],
+      quantity: itemRow[1] !== "" ? itemRow[1] : null,
       unit: itemRow[2],
       name: itemRow[3],
       note: itemRow[4],

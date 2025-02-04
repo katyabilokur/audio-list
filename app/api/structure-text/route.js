@@ -1,8 +1,6 @@
-import { OpenAI } from "openai";
+import Anthropic from "@anthropic-ai/sdk";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const anthropic = new Anthropic();
 
 export async function POST(request) {
   try {
@@ -10,40 +8,53 @@ export async function POST(request) {
     const categories = "grocery, household, other";
 
     const prompt = `
-    INSTRUCTIONS:
-    1. Extract items from INPUT and their quantity;
-2. Translate items into English;
-3. Name of the product across the results should be either in singular or plural form;
-4. Detect unit in world standard format (e.g. kg for kilos, l for liters, pack) and keep it consistent in the results;
-5. Return results in strict CSV format (without header and spaces) and proper columns: type (one of: ${categories}), quantity, unit, name, note (if exists);
-6. Type and Name can not be empty, others fields can;
-7. Only use products from INPUT;
-8. Assign each item to the best-fit type based on its context. Only assign 'Other' type is really unsure;
-9. Do not add any extra quotes to item names;
-10. Do not add columns. Keep the structure of columns consistent: type, quantity, unit, name, note. If no information for note, leave the column empty but do not skip;
+Here are the categories you should use to classify items:
 
-    INPUT:"${text}"`.trim();
+CATEGORIES: ${categories}
+INPUT-TEXT: ${text}
 
-    console.log(prompt);
+Instructions:
+1. Extract individual shopping items from the INPUT-TEXT.
+2. For each item, determine the following:
+   - Type (choose the best fit from the provided CATEGORIES)
+   - Quantity
+   - Unit (use plural form if quantity > 1, otherwise singular). If not given set "Item" as a unit mesurnment
+   - Product name
+   - Additional notes (if any)
+3. Format the output as CSV with the following columns in this order:
+   type,quantity,unit,product name,note
+4. Follow these rules:
+   - Do not include a header row in the CSV output.
+   - The type and product name columns must not be empty.
+   - Other columns can be empty if the information is not provided.
+   - Use only letters, digits, dashes, and single quotes in the product name.
+   - Move descriptive details (e.g., "big", "fresh") to the note column.
+   - Treat general terms like "veggies" or "fruit" as product names, not notes.
+   - Do not add any quotes to the CSV values.
+   - If a value is missing, leave it empty but keep the comma (e.g., "grocery,,,veggies,some").
+Proceed with analyzing the shopping list and generating the CSV output only as a result.
+    `.trim();
 
-    const response = await openai.chat.completions.create({
+    const response = await anthropic.messages.create({
+      model: "claude-3-5-haiku-20241022",
+      max_tokens: 1000,
+      temperature: 0.2,
+      system:
+        "You are an advanced shopping list parser. Your task is to analyze a given shopping list and convert it into a structured CSV format.",
       messages: [
         {
-          role: "system",
-          content:
-            "You are an assistant that converts lists to structured CSV data.",
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: prompt,
+            },
+          ],
         },
-        { role: "user", content: prompt },
       ],
-      model: "gpt-3.5-turbo",
-      temperature: 0.4,
-      // max_tokens: 256,
-      // top_p: 1,
-      // frequency_penalty: 0,
-      // presence_penalty: 0,
     });
 
-    const csvData = response.choices[0].message.content.trim();
+    const csvData = response.content[0].text.trim();
 
     return new Response(JSON.stringify({ csv: csvData }), {
       status: 200,

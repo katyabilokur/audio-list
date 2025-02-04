@@ -15,7 +15,7 @@ import {
 
 const mimeType = "audio/webm";
 
-const AudioRecorder = ({userId}) => {
+const AudioRecorder = ({ userId }) => {
   const [permission, setPermission] = useState(false);
   const [stream, setStream] = useState(null);
 
@@ -63,7 +63,7 @@ const AudioRecorder = ({userId}) => {
     //stops the recording instance
     mediaRecorder.current.stop();
     mediaRecorder.current.onstop = async () => {
-      //creates a blob file from the audiochunks data
+      //creates a blob file from the audio chunks data
       const audioBlob = new Blob(audioChunks, { type: mimeType });
 
       //TODO: uncomment when finished testing of part 3
@@ -74,18 +74,22 @@ const AudioRecorder = ({userId}) => {
       //   const csvText = await structureText(recordedText);
       // }
 
-      //Part 3. TODO: move up.
-      // //text to object
+      //Part 3. Text structuring with Anthropic AI. Returns text in csv limited format
       // const recordedText =
       //   "One pack of potato, one big sweet potato, two packs of berries, one kilos of banana and some veggies, big milk 2 liters, 2 soap bottles";
       // console.log(recordedText);
       // const csvText = await structureText(recordedText);
       // console.log(csvText);
 
-      //Part 4.
-      //save to DB
       const csvText =
-        "grocery,1,pack,potato,\ngrocery,1,,sweet potato,big\ngrocery,2,pack,berries,\ngrocery,1,kilos,banana,some veggies\ngrocery,2,l,milk,big\nhousehold,2,,soap bottles,";
+        "grocery,1,pack,potato,\n" +
+        "grocery,1,item,sweet-potato,big\n" +
+        "grocery,2,packs,berries,\n" +
+        "grocery,1,kilo,banana,\n" +
+        "grocery,,,veggies,some\n" +
+        "grocery,2,liters,milk,big";
+
+      //Part 4. Split csv text and save result to the DB Items table
       const insertedItems = await insertNewItems(csvText, userId);
       console.log(insertedItems);
 
