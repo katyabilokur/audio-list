@@ -17,6 +17,26 @@ export async function uploadFileToStorage(audioBlob, userId) {
   return data.publicUrl;
 }
 
+export async function deleteFileFromStorage(url) {
+  const urlFile = url.split("/").at(-1);
+
+  const response = await fetch("/api/delete-audio", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ urlFile }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.error("File deletion failed:", data.error || "Unknown error");
+  }
+
+  return;
+}
+
 export async function transcribeAudio(publicUrl) {
   const response = await fetch("/api/transcribe-audio", {
     method: "POST",
@@ -26,11 +46,11 @@ export async function transcribeAudio(publicUrl) {
     body: JSON.stringify({ audioUrl: publicUrl }),
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
     console.error("Transcription failed:", data.error || "Unknown error");
   }
-
-  const data = await response.json();
 
   return data;
 }

@@ -7,6 +7,7 @@ import {
   StopIcon,
 } from "@heroicons/react/24/solid";
 import {
+  deleteFileFromStorage,
   insertNewItems,
   structureText,
   transcribeAudio,
@@ -107,8 +108,9 @@ const AudioRecorder = ({ userId }) => {
       // const audioUrl = URL.createObjectURL(audioBlob);
       // setAudio(audioUrl);
 
-      //6. Clear audioChunks
+      //6. Clear audioChunks and file from the storage
       setAudioChunks([]);
+      await deleteFileFromStorage(url.publicUrl);
     };
   };
 
