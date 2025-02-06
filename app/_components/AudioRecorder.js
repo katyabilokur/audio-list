@@ -76,7 +76,7 @@ const AudioRecorder = ({ userId }) => {
 
       //2. Save recording file to the storage
       setProcessingType("Saving audio record...");
-      const url = await uploadFileToStorage(audioBlob);
+      const url = await uploadFileToStorage(audioBlob, userId);
       if (url.publicUrl) {
         //If file is created and saved begging data processing
         //3. Transcribe audio to text with Assembly AI

@@ -6,6 +6,7 @@ export async function POST(req) {
     // Parse form data from the incoming request
     const formData = await req.formData();
     const file = formData.get("file");
+    const userId = formData.get("userId");
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
@@ -13,7 +14,7 @@ export async function POST(req) {
 
     // Convert the file to an array buffer
     const buffer = await file.arrayBuffer();
-    const fileName = `audio-${Date.now()}.webm`;
+    const fileName = `${userId}-audio-${Date.now()}.webm`;
 
     // Upload the file to Supabase Storage
     const { data, error } = await supabase.storage

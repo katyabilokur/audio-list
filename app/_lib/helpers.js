@@ -1,6 +1,7 @@
-export async function uploadFileToStorage(audioBlob) {
+export async function uploadFileToStorage(audioBlob, userId) {
   const formData = new FormData();
   formData.append("file", audioBlob);
+  formData.append("userId", userId);
 
   const response = await fetch("/api/upload-audio", {
     method: "POST",
