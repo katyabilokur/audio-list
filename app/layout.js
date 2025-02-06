@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${font.className} antialiased min-h-screen bg-primary-950 text-primary-100 flex flex-col`}
+        className={`${font.className} antialiased min-h-screen flex flex-col`}
       >
         {session?.user && (
           <Navigation image={session.user.image} name={session.user.name} />

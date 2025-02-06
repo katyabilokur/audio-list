@@ -12,6 +12,7 @@ import {
   transcribeAudio,
   uploadFileToStorage,
 } from "../_lib/helpers";
+import SpinnerWithText from "./SpinnerWithText";
 
 const mimeType = "audio/webm";
 
@@ -23,6 +24,10 @@ const AudioRecorder = ({ userId }) => {
   const [recordingStatus, setRecordingStatus] = useState("inactive");
   const [audioChunks, setAudioChunks] = useState([]);
   const [audio, setAudio] = useState(null);
+
+  //audio recording processing
+  const [processingStatus, setProcessingStatus] = useState(false);
+  const [processingType, setProcessingType] = useState("");
 
   const getMicrophonePermission = async () => {
     if ("MediaRecorder" in window) {
@@ -59,49 +64,59 @@ const AudioRecorder = ({ userId }) => {
   };
 
   const stopRecording = async () => {
+    setProcessingStatus(true);
+    setProcessingType("Creating an audio record...");
     setRecordingStatus("inactive");
-    //stops the recording instance
+
+    //Stops the recording instance
     mediaRecorder.current.stop();
     mediaRecorder.current.onstop = async () => {
-      //creates a blob file from the audio chunks data
+      //1. Create a blob file from the audio chunks data
       const audioBlob = new Blob(audioChunks, { type: mimeType });
 
-      //TODO: uncomment when finished testing of part 3
-      // const url = await uploadFileToStorage(audioBlob);
-      // if (url.publicUrl) {
-      //   console.log(url.publicUrl);
-      //   const recordedText = await transcribeAudio(url.publicUrl);
-      //   const csvText = await structureText(recordedText);
-      // }
+      //2. Save recording file to the storage
+      setProcessingType("Saving audio record...");
+      const url = await uploadFileToStorage(audioBlob);
+      if (url.publicUrl) {
+        //If file is created and saved begging data processing
+        //3. Transcribe audio to text with Assembly AI
+        setProcessingType("Transcribing audio to text...");
+        const recordedText = await transcribeAudio(url.publicUrl);
+        //TEST DATA
+        // const recordedText =
+        //   "One pack of potato, one big sweet potato, two packs of berries, one kilos of banana and some veggies, big milk 2 liters, 2 soap bottles";
 
-      //Part 3. Text structuring with Anthropic AI. Returns text in csv limited format
-      // const recordedText =
-      //   "One pack of potato, one big sweet potato, two packs of berries, one kilos of banana and some veggies, big milk 2 liters, 2 soap bottles";
-      // console.log(recordedText);
-      // const csvText = await structureText(recordedText);
-      // console.log(csvText);
+        //4. Text structuring with Anthropic AI. Returns text in csv limited format
+        setProcessingType("Structuring your recorder data...");
+        const csvText = await structureText(recordedText);
+        //TEST DATA
+        // const csvText =
+        //   "grocery,1,pack,potato,\n" +
+        //   "grocery,1,item,sweet-potato,big\n" +
+        //   "grocery,2,packs,berries,\n" +
+        //   "grocery,1,kilo,banana,\n" +
+        //   "grocery,,,veggies,some\n" +
+        //   "grocery,2,liters,milk,big";
 
-      const csvText =
-        "grocery,1,pack,potato,\n" +
-        "grocery,1,item,sweet-potato,big\n" +
-        "grocery,2,packs,berries,\n" +
-        "grocery,1,kilo,banana,\n" +
-        "grocery,,,veggies,some\n" +
-        "grocery,2,liters,milk,big";
+        //5. Split csv text and save result to the DB Items table
+        setProcessingType("Saving shopping lists...");
+        const insertedItems = await insertNewItems(csvText, userId);
+        setProcessingStatus(false);
+        // console.log(insertedItems);
+      }
 
-      //Part 4. Split csv text and save result to the DB Items table
-      const insertedItems = await insertNewItems(csvText, userId);
-      console.log(insertedItems);
+      //Part1: creates a playable URL from the blob file. Can be downloaded or played if needed. So far removed
+      // const audioUrl = URL.createObjectURL(audioBlob);
+      // setAudio(audioUrl);
 
-      //creates a playable URL from the blob file.
-      const audioUrl = URL.createObjectURL(audioBlob);
-      setAudio(audioUrl);
+      //6. Clear audioChunks
       setAudioChunks([]);
     };
   };
 
   return (
     <div>
+      {processingStatus && <SpinnerWithText text={processingType} />}
       <div className="audio-controls h-100 w-100">
         {!permission ? (
           <>
@@ -140,14 +155,15 @@ const AudioRecorder = ({ userId }) => {
           </>
         ) : null}
 
-        {audio ? (
+        {/* Part2: playble audio */}
+        {/* {audio ? (
           <div className="audio-container">
-            {/* <audio src={audio} controls></audio> */}
+           <audio src={audio} controls></audio> 
             <a download href={audio}>
               Download Recording
             </a>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     </div>
   );
