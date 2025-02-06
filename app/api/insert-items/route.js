@@ -1,16 +1,15 @@
+import { getCategories } from "@/app/_lib/data-services";
 import { supabase } from "@/app/_lib/supabase";
 
 export async function POST(request) {
   const { csvItemsText, userId } = await request.json();
 
   //Create new item list from csv text
-  //--------
-  //TODO: get categories from context when added
-  //This code is for testing Insertion only.
+  const categoriesList = await getCategories(userId);
+
   const categories = new Map();
-  categories.set("grocery", 1);
-  categories.set("household", 2);
-  categories.set("other", 3);
+
+  categoriesList.forEach((catEl) => categories.set(catEl.name, catEl.id));
 
   let newItems = [];
   const csvItems = csvItemsText.split("\n");

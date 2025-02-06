@@ -5,7 +5,7 @@ import { getCategories } from "@/app/_lib/data-services";
 //NOTE: this is a test page so far
 //TODO: add functionality in R2
 export default async function Categories() {
-  const categories = await getCategories();
+  const categories = await getCategories(12);
 
   if (!categories.length) return null;
 

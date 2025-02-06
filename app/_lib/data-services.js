@@ -1,8 +1,11 @@
 import { supabase } from "./supabase";
 
 //Test function to get all Categories
-export const getCategories = async function () {
-  const { data, error } = await supabase.from("categories").select();
+export const getCategories = async function (userId) {
+  const { data, error } = await supabase
+    .from("categories")
+    .select("name, id")
+    .or(`userId.eq.${userId},userId.is.null`, { foreignTable: null });
 
   if (error) {
     console.error(error);

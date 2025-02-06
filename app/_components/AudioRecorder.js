@@ -83,12 +83,11 @@ const AudioRecorder = ({ userId }) => {
         setProcessingType("Transcribing audio to text...");
         const recordedText = await transcribeAudio(url.publicUrl);
         //TEST DATA
-        // const recordedText =
-        //   "One pack of potato, one big sweet potato, two packs of berries, one kilos of banana and some veggies, big milk 2 liters, 2 soap bottles";
+        // const recordedText = "a kid's book, some liquid to wash the floor";
 
         //4. Text structuring with Anthropic AI. Returns text in csv limited format
         setProcessingType("Structuring your recorder data...");
-        const csvText = await structureText(recordedText);
+        const csvText = await structureText(recordedText, userId);
         //TEST DATA
         // const csvText =
         //   "grocery,1,pack,potato,\n" +
@@ -102,7 +101,6 @@ const AudioRecorder = ({ userId }) => {
         setProcessingType("Saving shopping lists...");
         const insertedItems = await insertNewItems(csvText, userId);
         setProcessingStatus(false);
-        // console.log(insertedItems);
       }
 
       //Part1: creates a playable URL from the blob file. Can be downloaded or played if needed. So far removed

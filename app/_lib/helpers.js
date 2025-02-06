@@ -34,11 +34,11 @@ export async function transcribeAudio(publicUrl) {
   return data;
 }
 
-export async function structureText(text) {
+export async function structureText(text, userId) {
   const response = await fetch("/api/structure-text", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text }),
+    body: JSON.stringify({ text, userId }),
   });
 
   if (!response.ok) {

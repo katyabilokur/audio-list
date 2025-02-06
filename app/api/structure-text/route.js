@@ -1,11 +1,14 @@
+import { getCategories } from "@/app/_lib/data-services";
 import Anthropic from "@anthropic-ai/sdk";
 
 const anthropic = new Anthropic();
 
 export async function POST(request) {
   try {
-    const { text } = await request.json();
-    const categories = "grocery, household, other";
+    const { text, userId } = await request.json();
+
+    const categoriesList = await getCategories(userId);
+    const categories = categoriesList.map((catEl) => catEl.name).join(", ");
 
     const prompt = `
 Here are the categories you should use to classify items:
