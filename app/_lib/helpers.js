@@ -71,13 +71,13 @@ export async function structureText(text, userId) {
   return data.csv;
 }
 
-export async function insertNewItems(csvItemsText, userId) {
+export async function insertNewItems(csvItemsText, userId, urlId) {
   const response = await fetch("/api/insert-items", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ csvItemsText, userId }),
+    body: JSON.stringify({ csvItemsText, userId, urlId }),
   });
 
   if (!response.ok) {

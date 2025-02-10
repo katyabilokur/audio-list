@@ -8,11 +8,6 @@ function ShoppingListsItem({ category, items }) {
       <Link href={`/lists/${category.name}`}>
         {category.name} {curItems.length} items
       </Link>
-      {/* <ul>
-        {curItems.map((item) => (
-          <li key={item.name}>{item.name}</li>
-        ))}
-      </ul> */}
     </div>
   );
 }

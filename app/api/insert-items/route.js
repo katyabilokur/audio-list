@@ -1,15 +1,13 @@
 import { getCategories } from "@/app/_lib/data-services";
+import { mapCategories } from "@/app/_lib/dataHelpers";
+import { getCategoriesMappedList } from "@/app/_lib/helpers";
 import { supabase } from "@/app/_lib/supabase";
 
 export async function POST(request) {
-  const { csvItemsText, userId } = await request.json();
+  const { csvItemsText, userId, urlId } = await request.json();
 
-  //Create new item list from csv text
   const categoriesList = await getCategories(userId);
-
-  const categories = new Map();
-
-  categoriesList.forEach((catEl) => categories.set(catEl.name, catEl.id));
+  const categories = mapCategories(categoriesList, false);
 
   let newItems = [];
   const csvItems = csvItemsText.split("\n");
@@ -22,6 +20,7 @@ export async function POST(request) {
       unit: itemRow[2],
       name: itemRow[3],
       note: itemRow[4],
+      fileId: urlId,
     });
   });
 

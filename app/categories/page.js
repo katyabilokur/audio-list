@@ -1,19 +1,18 @@
-import { getCategories } from "../_lib/data-services";
+import ShoppingLists from "../_components/ShoppingLists";
+import { auth } from "../_lib/auth";
+import { getActiveCategories, getUserItems } from "../_lib/data-services";
 
-//NOTE: this is a test page so far
-//TODO: add functionality in R2
 export default async function Categories() {
-  const categories = await getCategories(12);
+  const session = await auth();
+  const curUserId = session?.user.userId;
 
-  if (!categories.length) return null;
+  const items = await getUserItems(curUserId);
+  const catList = Array.from(new Set(items.map((el) => el.categoryId)));
+  const categories = await getActiveCategories(catList);
 
   return (
     <>
-      <ul>
-        {categories.map((category) => (
-          <li key={category.name}>{category.name}</li>
-        ))}
-      </ul>
+      <ShoppingLists categories={categories} items={items} />
     </>
   );
 }

@@ -14,6 +14,7 @@ import {
   uploadFileToStorage,
 } from "../_lib/helpers";
 import SpinnerWithText from "./SpinnerWithText";
+import { redirect } from "next/navigation";
 
 const mimeType = "audio/webm";
 
@@ -100,17 +101,21 @@ const AudioRecorder = ({ userId }) => {
 
         //5. Split csv text and save result to the DB Items table
         setProcessingType("Saving shopping lists...");
-        const insertedItems = await insertNewItems(csvText, userId);
+        const urlId = url.publicUrl.split("/").at(-1).split(".")[0];
+        await insertNewItems(csvText, userId, urlId);
+
+        //6. Clear audioChunks and file from the storage
+        setProcessingType("Cleaning audio storage...");
+        setAudioChunks([]);
+        await deleteFileFromStorage(url.publicUrl);
         setProcessingStatus(false);
+
+        redirect(`/items/${urlId}`);
       }
 
       //Part1: creates a playable URL from the blob file. Can be downloaded or played if needed. So far removed
       // const audioUrl = URL.createObjectURL(audioBlob);
       // setAudio(audioUrl);
-
-      //6. Clear audioChunks and file from the storage
-      setAudioChunks([]);
-      await deleteFileFromStorage(url.publicUrl);
     };
   };
 

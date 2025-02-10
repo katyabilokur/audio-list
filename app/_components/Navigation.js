@@ -7,7 +7,9 @@ export default function Navigation({ image, name }) {
         <li>
           <Link href="/">Logo</Link>
         </li>
-        <li>My List</li>
+        <li>
+          <Link href="/categories">My lists</Link>
+        </li>
         <li>
           <Link className="flex gap-2" href="/account">
             <img

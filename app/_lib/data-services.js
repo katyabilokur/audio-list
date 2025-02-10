@@ -43,6 +43,23 @@ export const getUserItems = async function (userId) {
   return data;
 };
 
+//Load all items with given fileId
+export const getItemsByFileId = async function (fileId, userId) {
+  const { data, error } = await supabase
+    .from("items")
+    .select("*")
+    .eq("fileId", fileId)
+    .eq("userId", userId);
+
+  if (error) {
+    throw new Error(
+      `Shopping items for fileId ${fileId} cannot be found/loaded`
+    );
+  }
+
+  return data;
+};
+
 // All users are uniquely identified by their email address (logged in)
 export async function getUser(email) {
   const { data, error } = await supabase
