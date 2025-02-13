@@ -4,13 +4,12 @@ import { updateListItems } from "@/app/_lib/actions";
 import EditListRow from "./EditListRow";
 import { useFormStatus } from "react-dom";
 
-function UpdateItemsForm({ list, categories, userId }) {
+function UpdateItemsForm({ list, categories }) {
   return (
     <form
       action={updateListItems}
       className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
     >
-      <input type="hidden" value={userId} name="userId" />
       <div>
         {list.map((el) => (
           <EditListRow row={el} key={el.name} categories={categories} />

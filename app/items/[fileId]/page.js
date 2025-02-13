@@ -19,11 +19,7 @@ export default async function Page({ params }) {
       {unconfirmedItems.length > 0 && (
         <>
           <h2>Please review and confirm all added items</h2>
-          <UpdateItemsForm
-            list={unconfirmedItems}
-            categories={categories}
-            userId={userId}
-          />
+          <UpdateItemsForm list={unconfirmedItems} categories={categories} />
         </>
       )}
       {unconfirmedItems.length === 0 && (

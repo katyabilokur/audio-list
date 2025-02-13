@@ -4,6 +4,7 @@ export default function EditListRow({ row, categories }) {
   const cats = Array.from(categories.values());
   return (
     <div className="flex gap-2">
+      <input type="hidden" value={row.id} name="itemId" />
       {/* Category selection */}
       <select
         name="category"
