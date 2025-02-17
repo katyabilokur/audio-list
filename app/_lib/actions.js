@@ -14,6 +14,27 @@ export async function signOutAction() {
   await signOut({ redirectTo: "/" });
 }
 
+export async function clearCategoryItems(items) {
+  const session = await auth();
+  const userId = session?.user.userId;
+
+  //Check and filter all items that user can delete to eliminate unauthorised action
+  const validIdsToDeleted = items
+    .filter((item) => item.userId === userId)
+    .map((el) => el.id);
+
+  const { error } = await supabase
+    .from("items")
+    .delete()
+    .in("id", validIdsToDeleted);
+
+  if (error) {
+    console.error(`Error deleting items records: `, error);
+  }
+
+  redirect("/home");
+}
+
 export async function updateListItems(formData) {
   const session = await auth();
   const userId = session?.user.userId;

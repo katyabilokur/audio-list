@@ -1,4 +1,4 @@
-import BottomNavigation from "@/app/_components/BottomNavigation";
+import BottomItemsNavigation from "@/app/_components/BottomItemsNavigation";
 import ItemRowView from "@/app/_components/ItemRowView";
 import { auth } from "@/app/_lib/auth";
 import { getItemsByCategoryName } from "@/app/_lib/data-services";
@@ -21,11 +21,10 @@ export default async function Page({ params }) {
           ))}
           <button>Start shopping</button>
           <button>Back</button>
-          <BottomNavigation>
-            <button>Share</button>
-            <button>Edit</button>
-            <button>Clear</button>
-          </BottomNavigation>
+          <BottomItemsNavigation
+            items={categoryItems}
+            categoryName={categoryName}
+          />
         </>
       )}
       {categoryItems.length === 0 && (
