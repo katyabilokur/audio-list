@@ -60,6 +60,26 @@ export const getItemsByFileId = async function (fileId, userId) {
   return data;
 };
 
+//Load all items with given categoryName for given UserId
+export const getItemsByCategoryName = async function (categoryName, userId) {
+  const categories = await getCategories(userId);
+  const categoryId = categories.find((el) => el.name === categoryName).id;
+
+  const { data, error } = await supabase
+    .from("items")
+    .select("*, categories(id, name)")
+    .eq("categoryId", categoryId)
+    .eq("userId", userId);
+
+  if (error) {
+    throw new Error(
+      `Shopping items for ${categoryName} cannot be found/loaded`
+    );
+  }
+
+  return data;
+};
+
 // All users are uniquely identified by their email address (logged in)
 export async function getUser(email) {
   const { data, error } = await supabase

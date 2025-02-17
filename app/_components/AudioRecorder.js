@@ -110,7 +110,7 @@ const AudioRecorder = ({ userId }) => {
         await deleteFileFromStorage(url.publicUrl);
         setProcessingStatus(false);
 
-        redirect(`/items/${urlId}`);
+        redirect(`/review/${urlId}`);
       }
 
       //Part1: creates a playable URL from the blob file. Can be downloaded or played if needed. So far removed

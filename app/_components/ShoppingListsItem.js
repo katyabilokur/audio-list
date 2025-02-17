@@ -5,7 +5,7 @@ function ShoppingListsItem({ category, items }) {
 
   return (
     <div>
-      <Link href={`/lists/${category.name}`}>
+      <Link href={`/items/${category.name}`}>
         {category.name} {curItems.length} items
       </Link>
     </div>
