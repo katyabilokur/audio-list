@@ -50,6 +50,8 @@ export async function updateListItems(formData) {
   const name = formData.getAll("name");
   const note = formData.getAll("note");
 
+  const removedIds = JSON.parse(formData.get("removedIds") || "[]");
+
   let updatedItems = [];
   for (let i = 0; i < ids.length; i++) {
     updatedItems.push({
@@ -82,6 +84,11 @@ export async function updateListItems(formData) {
     if (error) {
       console.error(`Error updating record with ID ${item.id}:`, error);
     }
+  }
+
+  //If there are rows to be removed from the DB, do it
+  if (removedIds.length > 0) {
+    await supabase.from("items").delete().in("id", removedIds);
   }
 
   //TODO: see if anything needs to be revalidated
