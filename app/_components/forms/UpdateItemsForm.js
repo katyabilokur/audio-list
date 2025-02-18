@@ -3,6 +3,7 @@
 import { updateListItems } from "@/app/_lib/actions";
 import EditListRow from "./EditListRow";
 import { useFormStatus } from "react-dom";
+import BackButton from "../BackButton";
 
 function UpdateItemsForm({ list, categories }) {
   return (
@@ -16,6 +17,7 @@ function UpdateItemsForm({ list, categories }) {
         ))}
       </div>
       <div className="flex justify-end items-center gap-6">
+        <BackButton>Cancel</BackButton>
         <Button />
       </div>
     </form>

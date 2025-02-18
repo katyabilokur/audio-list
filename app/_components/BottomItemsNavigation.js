@@ -3,6 +3,7 @@
 import { Description, Dialog, DialogPanel } from "@headlessui/react";
 import { useState } from "react";
 import { clearCategoryItems } from "../_lib/actions";
+import Link from "next/link";
 
 function BottomItemsNavigation({ items, categoryName }) {
   let [isOpenClear, setIsOpenClear] = useState(false);
@@ -14,7 +15,7 @@ function BottomItemsNavigation({ items, categoryName }) {
   return (
     <nav>
       <button>Share</button>
-      <button>Edit</button>
+      <Link href={`/items/${categoryName}/edit`}>Edit</Link>
       <button onClick={() => setIsOpenClear(true)}>Clear</button>
       <Dialog
         open={isOpenClear}

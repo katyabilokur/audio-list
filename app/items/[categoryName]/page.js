@@ -1,7 +1,9 @@
+import BackButton from "@/app/_components/BackButton";
 import BottomItemsNavigation from "@/app/_components/BottomItemsNavigation";
 import ItemRowView from "@/app/_components/ItemRowView";
 import { auth } from "@/app/_lib/auth";
 import { getItemsByCategoryName } from "@/app/_lib/data-services";
+import Link from "next/link";
 
 export default async function Page({ params }) {
   const session = await auth();
@@ -19,8 +21,8 @@ export default async function Page({ params }) {
           {categoryItems.map((itemRow) => (
             <ItemRowView item={itemRow} key={itemRow.name} />
           ))}
-          <button>Start shopping</button>
-          <button>Back</button>
+          <Link href={`shopping/${categoryName}`}>Start shopping</Link>
+          <BackButton>Back</BackButton>
           <BottomItemsNavigation
             items={categoryItems}
             categoryName={categoryName}
