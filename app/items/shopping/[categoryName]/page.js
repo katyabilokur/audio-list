@@ -1,4 +1,5 @@
 import AnimatedLists from "@/app/_components/AnimatedLists";
+import BackButton from "@/app/_components/BackButton";
 import { auth } from "@/app/_lib/auth";
 import { getItemsByCategoryName } from "@/app/_lib/data-services";
 
@@ -12,10 +13,12 @@ export default async function Page({ params }) {
 
   return (
     <div className="max-w-6xl mx-auto mt-8">
-      <AnimatedLists
-        categoryItems={categoryItems}
-        categoryName={categoryName}
-      />
+      <h2>Start shopping for {categoryName}</h2>
+      <AnimatedLists categoryItems={categoryItems} />
+      <div className="flex gap-2">
+        <BackButton>Go Back</BackButton>
+        <button>Finish shopping</button>
+      </div>
     </div>
   );
 }

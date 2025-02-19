@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import InCartList from "./InCartList";
 
-export default function AnimatedLists({ categoryItems, categoryName }) {
+export default function AnimatedLists({ categoryItems }) {
   const [items, setItems] = useState(categoryItems);
   const [inCartItems, setInCartItems] = useState([]);
+
+  const allInCart = items.length === 0 ? true : false;
 
   const toggleItem = (item) => {
     if (inCartItems.find((itm) => itm.id === item.id)) {
@@ -19,9 +22,13 @@ export default function AnimatedLists({ categoryItems, categoryName }) {
 
   return (
     <div className="flex gap-6 p-6 flex-col">
-      {/* List 1: To buy */}
       <div className="w-1/2 p-4 bg-gray-100 rounded-lg">
-        <h3 className="mb-2 font-semibold">{`${categoryName}: to buy`}</h3>
+        <div className="flex justify-between">
+          <p>To buy</p>
+          <p>
+            <span>{items.length}</span> items
+          </p>
+        </div>
         <AnimatePresence>
           {items.map((item) => (
             <motion.div
@@ -40,30 +47,11 @@ export default function AnimatedLists({ categoryItems, categoryName }) {
         </AnimatePresence>
       </div>
 
-      {/* List 2: items in cart */}
-      <div className="w-1/2 p-4 bg-gray-100 rounded-lg">
-        <h3 className="mb-2 font-semibold">In cart</h3>
-        <AnimatePresence>
-          {inCartItems.map((item) => (
-            <motion.div
-              key={item.name}
-              layout
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center gap-2 p-2 bg-green-100 shadow-sm rounded"
-            >
-              <input
-                type="checkbox"
-                checked
-                onChange={() => toggleItem(item)}
-              />
-              <span>{`${item.quantity} ${item.unit} ${item.note} ${item.name}`}</span>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
+      <InCartList
+        inCartItems={inCartItems}
+        toggleItem={toggleItem}
+        itemsToBuy={categoryItems.length}
+      />
     </div>
   );
 }
