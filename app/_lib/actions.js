@@ -35,6 +35,10 @@ export async function clearCategoryItems(items) {
   redirect("/home");
 }
 
+export async function shareList(formData) {
+  //TODO:
+}
+
 export async function updateListItems(formData) {
   const session = await auth();
   const userId = session?.user.userId;
