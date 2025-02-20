@@ -1,6 +1,5 @@
 import { getCategories } from "@/app/_lib/data-services";
 import { mapCategories } from "@/app/_lib/dataHelpers";
-import { getCategoriesMappedList } from "@/app/_lib/helpers";
 import { supabase } from "@/app/_lib/supabase";
 
 export async function POST(request) {

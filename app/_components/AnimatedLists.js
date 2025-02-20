@@ -3,22 +3,26 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import InCartList from "./InCartList";
+import { updateCartItem } from "../_lib/helpers";
 
 export default function AnimatedLists({ categoryItems }) {
   const [items, setItems] = useState(categoryItems);
   const [inCartItems, setInCartItems] = useState([]);
 
-  const allInCart = items.length === 0 ? true : false;
-
-  const toggleItem = (item) => {
+  async function toggleItem(item) {
     if (inCartItems.find((itm) => itm.id === item.id)) {
       setInCartItems(inCartItems.filter((i) => i.id !== item.id));
       setItems([...items, item]);
+      //Remove from Redis
+      await updateCartItem(item.categoryId, item.id, false);
     } else {
+      //Adding an item to cart
       setItems(items.filter((i) => i.id !== item.id));
       setInCartItems([...inCartItems, item]);
+      //Save to Redis
+      await updateCartItem(item.categoryId, item.id);
     }
-  };
+  }
 
   return (
     <div className="flex gap-6 p-6 flex-col">

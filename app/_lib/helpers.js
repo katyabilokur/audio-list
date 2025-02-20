@@ -88,3 +88,22 @@ export async function insertNewItems(csvItemsText, userId, urlId) {
 
   return result.data;
 }
+
+//add = true is to add an item, false is to remove the item
+export async function updateCartItem(categoryId, itemId, add = true) {
+  const response = await fetch("/api/update-cart", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ categoryId, itemId, add }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update Cart");
+  }
+
+  const result = await response.json();
+
+  return result.data;
+}
