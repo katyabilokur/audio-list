@@ -2,9 +2,10 @@
 
 import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
-import { getCategories } from "./data-services";
+import { getCategories, getCategoryIdByName } from "./data-services";
 import { mapCategories } from "./dataHelpers";
 import { supabase } from "./supabase";
+import { z } from "zod";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/home" });
@@ -35,8 +36,35 @@ export async function clearCategoryItems(items) {
   redirect("/home");
 }
 
+const shareListSchema = z.object({
+  email: z.string().email("Invalid email address"),
+});
+
 export async function shareList(formData) {
-  //TODO:
+  const session = await auth();
+  const userId = session?.user.userId;
+
+  const email = formData.get("email");
+  const categoryName = formData.get("categoryName");
+  const catId = await getCategoryIdByName(categoryName, userId);
+
+  try {
+    shareListSchema.parse({ email });
+  } catch (error) {
+    console.error("Validation error:", error.errors);
+    return { error: "Invalid form data email" };
+  }
+
+  const { data, error } = await supabase
+    .from("shares")
+    .insert([{ userId: userId, categoryId: catId.id, email }])
+    .select();
+
+  if (error) {
+    console.error(`Cannot save sharing information`, error);
+  }
+
+  return data;
 }
 
 export async function updateListItems(formData) {

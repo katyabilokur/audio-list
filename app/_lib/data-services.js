@@ -1,22 +1,29 @@
 import { supabase } from "./supabase";
 
-export const getSharesByCategoryName = async function (categoryName, userId) {
-  const { data: dataCat, error: errorCat } = await supabase
+export const getCategoryIdByName = async function (categoryName, userId) {
+  const { data, error } = await supabase
     .from("categories")
     .select("id")
     .eq("name", categoryName)
     .or(`userId.eq.${userId},userId.is.null`, { foreignTable: null })
     .single();
 
-  if (errorCat) {
-    console.error(errorCat);
+  if (error) {
+    console.error(error);
     throw new Error("Cannot load categories info to find shares");
   }
+
+  return data;
+};
+
+export const getSharesByCategoryName = async function (categoryName, userId) {
+  const catId = await getCategoryIdByName(categoryName, userId);
+
   const { data, error } = await supabase
     .from("shares")
     .select("email")
     .eq("userId", userId)
-    .eq("categoryId", dataCat.id);
+    .eq("categoryId", catId.id);
 
   if (error) {
     console.error(error);

@@ -9,6 +9,7 @@ import ShareForm from "./forms/ShareForm";
 function BottomItemsNavigation({ items, categoryName, existingShares }) {
   const [isOpenClear, setIsOpenClear] = useState(false);
   const [isOpenShare, setIsOpenShare] = useState(false);
+  const [currentShares, setCurrentShares] = useState(existingShares);
 
   async function handleClear() {
     await clearCategoryItems(items);
@@ -37,11 +38,15 @@ function BottomItemsNavigation({ items, categoryName, existingShares }) {
             </Description>
             {existingShares.length !== 0 && (
               <p>
-                You are already sharing this list with{" "}
-                {existingShares.map((el) => el.email).join(", ")}
+                You are already sharing this list with
+                {currentShares.map((el) => el.email).join(", ")}
               </p>
             )}
-            <ShareForm setIsOpenShare={setIsOpenShare} />
+            <ShareForm
+              categoryName={categoryName}
+              setIsOpenShare={setIsOpenShare}
+              setCurrentShares={setCurrentShares}
+            />
           </DialogPanel>
         </div>
       </Dialog>
