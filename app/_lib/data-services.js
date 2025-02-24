@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 
 export const getCategoryIdByName = async function (categoryName, userId) {
@@ -97,12 +98,16 @@ export const getItemsByFileId = async function (fileId, userId) {
 //Load all items with given categoryName for given UserId
 export const getItemsByCategoryName = async function (categoryName, userId) {
   const categories = await getCategories(userId);
-  const categoryId = categories.find((el) => el.name === categoryName).id;
+  const category = categories.find((el) => el.name === categoryName);
+
+  if (!category) {
+    notFound();
+  }
 
   const { data, error } = await supabase
     .from("items")
     .select("*, categories(id, name)")
-    .eq("categoryId", categoryId)
+    .eq("categoryId", category.id)
     .eq("userId", userId);
 
   if (error) {
