@@ -18,8 +18,8 @@ export async function POST(request) {
     await redis.lRem(redisKey, 1, itemId.toString());
   }
 
-  //TODO: 30 seconds for testing
-  await redis.expire(redisKey, 30);
+  //TODO: 60 seconds for testing.
+  await redis.expire(redisKey, 60);
 
   //TODO: add error handling
   // if (error) {

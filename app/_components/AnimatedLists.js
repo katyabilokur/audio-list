@@ -5,9 +5,13 @@ import { motion, AnimatePresence } from "motion/react";
 import InCartList from "./InCartList";
 import { updateCartItem } from "../_lib/helpers";
 
-export default function AnimatedLists({ categoryItems }) {
-  const [items, setItems] = useState(categoryItems);
-  const [inCartItems, setInCartItems] = useState([]);
+export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
+  const [items, setItems] = useState(() =>
+    categoryItems.filter((item) => !alreadyInCartIds.includes(item.id))
+  );
+  const [inCartItems, setInCartItems] = useState(() =>
+    categoryItems.filter((item) => alreadyInCartIds.includes(item.id))
+  );
 
   async function toggleItem(item) {
     if (inCartItems.find((itm) => itm.id === item.id)) {
