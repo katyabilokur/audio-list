@@ -6,8 +6,10 @@ import InCartList from "./InCartList";
 import { deleteItems, updateCartItem } from "../_lib/helpers";
 import BackButton from "./BackButton";
 import { redirect } from "next/navigation";
+import ConfirmationDialog from "./dialogs/confirmationDialog";
 
 export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [items, setItems] = useState(() =>
     categoryItems.filter((item) => !alreadyInCartIds.includes(item.id))
   );
@@ -18,9 +20,7 @@ export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
   async function handleFinishShopping() {
     if (inCartItems.length > 0) {
       await deleteItems(inCartItems.map((el) => el.id));
-
-      //TODO: navigate. Show confirmation
-      redirect("/home");
+      setIsConfirmationOpen(true);
     }
   }
 
@@ -81,6 +81,12 @@ export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
           Finish shopping
         </button>
       </div>
+
+      <ConfirmationDialog
+        isOpen={isConfirmationOpen}
+        text={`You bought ${inCartItems.length} items. Shopping is finished`}
+        onClose={() => redirect("/home")}
+      />
     </div>
   );
 }
