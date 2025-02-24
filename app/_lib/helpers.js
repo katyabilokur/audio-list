@@ -72,7 +72,7 @@ export async function structureText(text, userId) {
 }
 
 export async function insertNewItems(csvItemsText, userId, urlId) {
-  const response = await fetch("/api/insert-items", {
+  const response = await fetch("/api/items", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -87,6 +87,24 @@ export async function insertNewItems(csvItemsText, userId, urlId) {
   const result = await response.json();
 
   return result.data;
+}
+
+export async function deleteItems(itemIds) {
+  const response = await fetch("/api/items", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ itemIds }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete items");
+  }
+
+  await response.json();
+
+  return;
 }
 
 //add = true is to add an item, false is to remove the item

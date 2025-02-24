@@ -1,6 +1,7 @@
 import { getCategories } from "@/app/_lib/data-services";
 import { mapCategories } from "@/app/_lib/dataHelpers";
 import { supabase } from "@/app/_lib/supabase";
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
   const { csvItemsText, userId, urlId } = await request.json();
@@ -42,4 +43,23 @@ export async function POST(request) {
     status: 200,
     headers: { "Content-Type": "application/json" },
   });
+}
+
+export async function DELETE(req) {
+  const { itemIds } = await req.json();
+
+  const { error } = await supabase.from("items").delete().in("id", itemIds);
+
+  if (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Failed to delete items" },
+      { status: 500 }
+    );
+  }
+
+  return NextResponse.json(
+    { message: "Bought items successfully removed from to buy list" },
+    { status: 200 }
+  );
 }

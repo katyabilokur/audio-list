@@ -1,5 +1,4 @@
 import AnimatedLists from "@/app/_components/AnimatedLists";
-import BackButton from "@/app/_components/BackButton";
 import { auth } from "@/app/_lib/auth";
 import { getItemsByCategoryName } from "@/app/_lib/data-services";
 import { getTempItemsInCart } from "@/app/_lib/data-services-redis";
@@ -21,10 +20,6 @@ export default async function Page({ params }) {
         categoryItems={categoryItems}
         alreadyInCartIds={inCartItemsId}
       />
-      <div className="flex gap-2">
-        <BackButton>Go Back</BackButton>
-        <button>Finish shopping</button>
-      </div>
     </div>
   );
 }

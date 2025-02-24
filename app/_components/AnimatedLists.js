@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import InCartList from "./InCartList";
-import { updateCartItem } from "../_lib/helpers";
+import { deleteItems, updateCartItem } from "../_lib/helpers";
+import BackButton from "./BackButton";
+import { redirect } from "next/navigation";
 
 export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
   const [items, setItems] = useState(() =>
@@ -12,6 +14,15 @@ export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
   const [inCartItems, setInCartItems] = useState(() =>
     categoryItems.filter((item) => alreadyInCartIds.includes(item.id))
   );
+
+  async function handleFinishShopping() {
+    if (inCartItems.length > 0) {
+      await deleteItems(inCartItems.map((el) => el.id));
+
+      //TODO: navigate. Show confirmation
+      redirect("/home");
+    }
+  }
 
   async function toggleItem(item) {
     if (inCartItems.find((itm) => itm.id === item.id)) {
@@ -60,6 +71,16 @@ export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
         toggleItem={toggleItem}
         itemsToBuy={categoryItems.length}
       />
+
+      <div className="flex gap-2">
+        <BackButton>Go Back</BackButton>
+        <button
+          onClick={handleFinishShopping}
+          disabled={inCartItems.length === 0}
+        >
+          Finish shopping
+        </button>
+      </div>
     </div>
   );
 }
