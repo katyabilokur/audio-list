@@ -44,15 +44,28 @@ export async function shareList(formData) {
   const session = await auth();
   const userId = session?.user.userId;
 
+  if (!userId) {
+    return { error: "Unauthorized access" };
+  }
+
   const email = formData.get("email");
   const categoryName = formData.get("categoryName");
+  const existingShares = JSON.parse(formData.get("existingShares"));
+
+  if (existingShares.includes(email)) {
+    return { success: true };
+  }
+
   const catId = await getCategoryIdByName(categoryName, userId);
 
-  try {
-    shareListSchema.parse({ email });
-  } catch (error) {
-    console.error("Validation error:", error.errors);
-    return { error: "Invalid form data email" };
+  if (!catId) {
+    return { error: "Category not found" };
+  }
+
+  const validationResult = shareListSchema.safeParse({ email });
+
+  if (!validationResult.success) {
+    return { error: "Invalid email address" };
   }
 
   const { data, error } = await supabase
@@ -62,9 +75,10 @@ export async function shareList(formData) {
 
   if (error) {
     console.error(`Cannot save sharing information`, error);
+    return { success: false, error: "Failed to share the list." };
   }
 
-  return data;
+  return { success: true };
 }
 
 export async function updateListItems(formData) {

@@ -3,6 +3,7 @@
 import { shareList } from "@/app/_lib/actions";
 import { useState } from "react";
 import ExistingShares from "../ExistingShares";
+import toast, { Toaster } from "react-hot-toast";
 
 function ShareForm({ categoryName, existingShares }) {
   const [email, setEmail] = useState("");
@@ -28,9 +29,19 @@ function ShareForm({ categoryName, existingShares }) {
     }
 
     setError("");
-    await shareList(new FormData(e.target));
-    setEmail("");
+    const result = await shareList(new FormData(e.target));
     setCurShares((cur) => [...cur, email]);
+
+    if (result?.success) {
+      toast.success(
+        `Your ${categoryName} list was shared successfully with ${email}!`
+      );
+      setEmail("");
+    } else {
+      toast.error(
+        `Failed to share ${categoryName} with ${email}. Please try again.`
+      );
+    }
   }
 
   function handleEmailChange(e) {
@@ -40,6 +51,7 @@ function ShareForm({ categoryName, existingShares }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
       {curShares.length > 0 && (
         <ExistingShares categoryName={categoryName} shares={curShares} />
       )}

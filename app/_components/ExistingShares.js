@@ -1,6 +1,4 @@
 export default function ExistingShares({ categoryName, shares }) {
-  console.log(shares);
-  console.log(typeof shares);
   return (
     <>
       <h3>
