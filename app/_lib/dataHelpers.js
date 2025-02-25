@@ -7,3 +7,5 @@ export function mapCategories(categoriesList, byId = true) {
   );
   return categories;
 }
+
+export const maxSharesNumber = 5;

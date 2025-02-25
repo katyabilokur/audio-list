@@ -4,6 +4,7 @@ import { shareList } from "@/app/_lib/actions";
 import { useState } from "react";
 import ExistingShares from "../ExistingShares";
 import toast, { Toaster } from "react-hot-toast";
+import { maxSharesNumber } from "@/app/_lib/dataHelpers";
 
 function ShareForm({ categoryName, existingShares }) {
   const [email, setEmail] = useState("");
@@ -50,38 +51,49 @@ function ShareForm({ categoryName, existingShares }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
-      {curShares.length > 0 && (
-        <ExistingShares categoryName={categoryName} shares={curShares} />
-      )}
-      <p>
-        Provide an email of a person with who you want to share your{" "}
-        {categoryName} list
-      </p>
-      <div className="flex gap-4 flex-col">
-        <input
-          type="hidden"
-          value={JSON.stringify(curShares)}
-          name="existingShares"
-        />
-        <input type="hidden" value={categoryName} name="categoryName" />
+      <div className="flex flex-col gap-3">
+        {curShares.length > 0 && (
+          <ExistingShares categoryName={categoryName} shares={curShares} />
+        )}
+        {curShares.length < maxSharesNumber && (
+          <form onSubmit={handleSubmit}>
+            <p>
+              Provide an email of a person with who you want to share your
+              {categoryName} list
+            </p>
+            <div className="flex gap-4 flex-col">
+              <input
+                type="hidden"
+                value={JSON.stringify(curShares)}
+                name="existingShares"
+              />
+              <input type="hidden" value={categoryName} name="categoryName" />
 
-        <input
-          type="email"
-          placeholder="share.with@email.com"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
-          // required
-        />
-        <p className="text-red-500">{error}</p>
+              <input
+                type="email"
+                placeholder="share.with@email.com"
+                name="email"
+                value={email}
+                onChange={handleEmailChange}
+              />
+              <p className="text-red-500">{error}</p>
 
-        <div className="flex gap-4">
-          <button>Share</button>
-        </div>
+              <div className="flex gap-4">
+                <button>Share</button>
+              </div>
+            </div>
+          </form>
+        )}
+        {curShares.length >= maxSharesNumber && (
+          <p>
+            You used maximum shares per category which is {maxSharesNumber}{" "}
+            users
+          </p>
+        )}
       </div>
-    </form>
+    </>
   );
 }
 

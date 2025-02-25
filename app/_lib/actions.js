@@ -6,6 +6,7 @@ import { getCategories, getCategoryIdByName } from "./data-services";
 import { mapCategories } from "./dataHelpers";
 import { supabase } from "./supabase";
 import { z } from "zod";
+import sendInviteEmail from "../_components/emails/inviteEmail";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/home" });
@@ -50,6 +51,7 @@ export async function shareList(formData) {
 
   const email = formData.get("email");
   const categoryName = formData.get("categoryName");
+  //TODO: BUG: potential safety leak. Do not take from form, but check in the DB. If more than maxSharesNumber shares, reject sharing.
   const existingShares = JSON.parse(formData.get("existingShares"));
 
   if (existingShares.includes(email)) {
@@ -77,6 +79,8 @@ export async function shareList(formData) {
     console.error(`Cannot save sharing information`, error);
     return { success: false, error: "Failed to share the list." };
   }
+
+  await sendInviteEmail(email, categoryName);
 
   return { success: true };
 }
