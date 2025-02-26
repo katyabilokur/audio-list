@@ -1,7 +1,11 @@
 import AudioRecorder from "../_components/AudioRecorder";
 import ShoppingLists from "../_components/ShoppingLists";
 import { auth } from "../_lib/auth";
-import { getActiveCategories, getUserItems } from "../_lib/data-services";
+import {
+  getActiveCategories,
+  getSharedItems,
+  getUserItems,
+} from "../_lib/data-services";
 
 export const metadata = {
   title: "Home",
@@ -15,9 +19,33 @@ export default async function Home() {
   const catList = Array.from(new Set(items.map((el) => el.categoryId)));
   const categories = await getActiveCategories(catList);
 
+  const sharedItems = await getSharedItems(curUserId, session.user.email);
+  const sharedCategories = await getActiveCategories(
+    sharedItems.map((el) => el.categoryId)
+  );
+
   return (
     <div className="flex flex-col h-full justify-between">
-      <ShoppingLists categories={categories} items={items} />
+      {items.length > 0 ? (
+        <ShoppingLists
+          categories={categories}
+          items={items}
+          title="My shopping lists"
+        />
+      ) : (
+        <p>
+          You do not have any items to buy yet. Start recording to add to your
+          existing categories
+        </p>
+      )}
+
+      {sharedItems.length > 0 && (
+        <ShoppingLists
+          categories={sharedCategories}
+          items={sharedItems}
+          title="Lists shared with me"
+        />
+      )}
       <AudioRecorder className="mt-auto" userId={curUserId} />
     </div>
   );

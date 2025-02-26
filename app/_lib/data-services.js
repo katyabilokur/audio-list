@@ -78,6 +78,42 @@ export const getUserItems = async function (userId) {
   return data;
 };
 
+export const getSharedItems = async function (userId, email) {
+  const { data, error } = await supabase
+    .from("shares")
+    .select("*")
+    .eq("email", email);
+
+  if (error) {
+    throw new Error(`Sharing information cannot be retrieved: ${error}`);
+  }
+
+  if (data.length === 0 || data === null) return [];
+
+  //If there are shares, extract all items
+
+  const { data: dataItems, error: errorItems } = await supabase
+    .from("items")
+    .select("*")
+    .in(
+      "userId",
+      data.map((el) => el.userId)
+    );
+
+  if (errorItems) {
+    throw new Error(`Cannot retrieve shared items: ${errorItems}`);
+  }
+
+  if (dataItems.length === 0 || dataItems === null) return [];
+
+  const sharedCategories = data.map((el) => el.categoryId);
+  const sharedItems = dataItems.filter((item) =>
+    sharedCategories.includes(item.categoryId)
+  );
+
+  return sharedItems;
+};
+
 //Load all items with given fileId
 export const getItemsByFileId = async function (fileId, userId) {
   const { data, error } = await supabase
