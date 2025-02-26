@@ -1,5 +1,10 @@
 import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
+import {
+  defaultCategory1,
+  defaultCategory2,
+  defaultCategoryFixed,
+} from "./dataHelpers";
 
 export const getCategoryIdByName = async function (categoryName, userId) {
   const { data, error } = await supabase
@@ -176,6 +181,21 @@ export async function createUser(newUser) {
   if (error) {
     console.error(error);
     throw new Error("A new user could not be created");
+  }
+
+  //Create new set of categories for a new user
+  const { data: dataCat, error: errorCat } = await supabase
+    .from("categories")
+    .insert([
+      { name: defaultCategory1, userId: data[0].id },
+      { name: defaultCategory2, userId: data[0].id },
+      { name: defaultCategoryFixed, userId: data[0].id },
+    ])
+    .select();
+
+  if (errorCat) {
+    console.error(errorCat);
+    throw new Error("Categories cannot be created for a user");
   }
 
   return data;
