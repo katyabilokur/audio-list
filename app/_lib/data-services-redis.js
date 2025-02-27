@@ -1,15 +1,9 @@
 import { auth } from "./auth";
 import { redis, connectRedis } from "@/app/_lib/redis";
-import { getCategories } from "./data-services";
 
-export const getTempItemsInCart = async function (categoryName) {
+export const getTempItemsInCart = async function (categoryId) {
   const session = await auth();
   const userId = session?.user.userId;
-
-  const categories = await getCategories(userId);
-  const categoryId = categories.find((el) => el.name === categoryName).id;
-
-  if (!categoryId) throw new Error("Category not found");
 
   await connectRedis();
 

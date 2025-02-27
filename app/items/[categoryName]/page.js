@@ -21,7 +21,7 @@ export default async function Page({ params }) {
           {categoryItems.map((itemRow) => (
             <ItemRowView item={itemRow} key={`${itemRow.name}-${itemRow.id}`} />
           ))}
-          <Link href={`shopping/${categoryName}`}>Start shopping</Link>
+          <Link href={`/shopping/${categoryName}`}>Start shopping</Link>
           <BackButton>Back</BackButton>
           <BottomItemsNavigation
             items={categoryItems}

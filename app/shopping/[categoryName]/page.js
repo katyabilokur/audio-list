@@ -11,7 +11,7 @@ export default async function Page({ params }) {
   const categoryName = parameters.categoryName;
   const categoryItems = await getItemsByCategoryName(categoryName, userId);
 
-  const inCartItemsId = await getTempItemsInCart(categoryName);
+  const inCartItemsId = await getTempItemsInCart(categoryItems[0].categoryId);
 
   return (
     <div className="max-w-6xl mx-auto mt-8">
