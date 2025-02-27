@@ -144,5 +144,9 @@ export async function updateListItems(formData) {
   //TODO: see if anything needs to be revalidated
   // revalidatePath("/account/reservations");
 
-  redirect("/home");
+  const uniqueCategories = new Set([...categories]);
+
+  uniqueCategories.size === 1
+    ? redirect(`/items/${categories[0]}`)
+    : redirect("/home");
 }

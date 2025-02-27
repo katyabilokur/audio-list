@@ -1,15 +1,20 @@
 import Link from "next/link";
 
-function ShoppingListsItem({ category, items, sharedName = null }) {
+function ShoppingListsItem({ category, items, urlPath, sharerName }) {
   const curItems = items.filter((el) => el.categoryId === category.id);
+
+  //   const sharedByText = "";
+  //   if (sharedName.contains("shared")) {
+  //  const
+  //   }
 
   return (
     <div>
-      <Link href={`/items/${category.name}`}>
+      <Link href={`/items/${urlPath}`}>
         <span>
           {category.name} {curItems.length} items
         </span>
-        {sharedName && <span>(shared by {sharedName})</span>}
+        {sharerName && <span>(shared by {sharerName})</span>}
       </Link>
     </div>
   );

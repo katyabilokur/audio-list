@@ -11,7 +11,7 @@ export const getCategoryIdByName = async function (categoryName, userId) {
     .from("categories")
     .select("id")
     .eq("name", categoryName)
-    .or(`userId.eq.${userId},userId.is.null`, { foreignTable: null })
+    .eq("userId", userId)
     .single();
 
   if (error) {
@@ -44,7 +44,7 @@ export const getCategories = async function (userId) {
   const { data, error } = await supabase
     .from("categories")
     .select("name, id")
-    .or(`userId.eq.${userId},userId.is.null`, { foreignTable: null });
+    .eq("userId", userId);
 
   if (error) {
     console.error(error);
@@ -111,12 +111,41 @@ export const getSharedItems = async function (userId, email) {
 
   if (dataItems.length === 0 || dataItems === null) return [];
 
+  //Get shared person name
+  const { data: dataName, error: errorName } = await supabase
+    .from("users")
+    .select("*")
+    .in(
+      "id",
+      data.map((el) => el.userId)
+    );
+
+  if (errorName) {
+    throw new Error("Cannot get shared users names");
+  }
+
+  const uniqueCategories = new Array(
+    new Set(
+      dataItems.map((el) => {
+        el.categoryId;
+      })
+    )
+  );
+
+  const categorySharedNames = [];
+  data.forEach((cat) => {
+    categorySharedNames.push({
+      categoryId: cat.categoryId,
+      sharedName: dataName.find((el) => el.id === cat.userId).fullName,
+    });
+  });
+
   const sharedCategories = data.map((el) => el.categoryId);
   const sharedItems = dataItems.filter((item) =>
     sharedCategories.includes(item.categoryId)
   );
 
-  return sharedItems;
+  return { sharedItems, categorySharedNames };
 };
 
 //Load all items with given fileId

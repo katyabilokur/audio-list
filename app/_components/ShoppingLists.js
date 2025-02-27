@@ -1,13 +1,25 @@
 import ShoppingListsItem from "./ShoppingListsItem";
 
-function ShoppingLists({ categories, items, title }) {
+function ShoppingLists({
+  categories,
+  items,
+  title,
+  shared = false,
+  sharedNames = null,
+}) {
   return (
     <div className="flex gap-4 flex-col">
       <h2>{title}</h2>
       <div>
         {categories.map((cat) => (
           <ShoppingListsItem
-            key={cat.name}
+            sharerName={
+              shared
+                ? sharedNames.find((el) => el.categoryId === cat.id).sharedName
+                : null
+            }
+            urlPath={shared ? `shared/${cat.id}` : `${cat.name}`}
+            key={`${cat.name}-${cat.id}`}
             category={cat}
             items={items}
           ></ShoppingListsItem>

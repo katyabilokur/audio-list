@@ -19,7 +19,10 @@ export default async function Home() {
   const catList = Array.from(new Set(items.map((el) => el.categoryId)));
   const categories = await getActiveCategories(catList);
 
-  const sharedItems = await getSharedItems(curUserId, session.user.email);
+  const { sharedItems, categorySharedNames } = await getSharedItems(
+    curUserId,
+    session.user.email
+  );
   const sharedCategories = await getActiveCategories(
     sharedItems.map((el) => el.categoryId)
   );
@@ -41,6 +44,8 @@ export default async function Home() {
 
       {sharedItems.length > 0 && (
         <ShoppingLists
+          shared={true}
+          sharedNames={categorySharedNames}
           categories={sharedCategories}
           items={sharedItems}
           title="Lists shared with me"

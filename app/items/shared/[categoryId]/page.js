@@ -10,12 +10,11 @@ export default async function Page({ params }) {
   const userId = session?.user.userId;
 
   const parameters = await params;
-  const categoryName = parameters.categoryName;
-  const categoryItems = await getItemsByCategoryName(categoryName, userId);
+  const categoryId = parameters.categoryId;
 
   return (
     <div className="max-w-6xl mx-auto mt-8">
-      {categoryItems.length > 0 && (
+      {/* {categoryItems.length > 0 && (
         <>
           <h2>{categoryName}</h2>
           {categoryItems.map((itemRow) => (
@@ -31,7 +30,7 @@ export default async function Page({ params }) {
       )}
       {categoryItems.length === 0 && (
         <p>No shopping items for {categoryName}</p>
-      )}
+      )} */}
     </div>
   );
 }
