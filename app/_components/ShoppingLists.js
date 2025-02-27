@@ -13,11 +13,7 @@ function ShoppingLists({
       <div>
         {categories.map((cat) => (
           <ShoppingListsItem
-            sharerName={
-              shared
-                ? sharedNames.find((el) => el.categoryId === cat.id).sharedName
-                : null
-            }
+            sharerName={shared ? sharedNames.get(cat.id) : null}
             urlPath={shared ? `shared/${cat.id}` : `${cat.name}`}
             key={`${cat.name}-${cat.id}`}
             category={cat}

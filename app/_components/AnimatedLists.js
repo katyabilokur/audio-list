@@ -6,7 +6,7 @@ import InCartList from "./InCartList";
 import { deleteItems, updateCartItem } from "../_lib/helpers";
 import BackButton from "./BackButton";
 import { redirect } from "next/navigation";
-import ConfirmationDialog from "./dialogs/confirmationDialog";
+import ConfirmationDialog from "./dialogs/ConfirmationDialog";
 
 export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -51,7 +51,7 @@ export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
         <AnimatePresence>
           {items.map((item) => (
             <motion.div
-              key={item.name}
+              key={`${item.name}-${item.id}`}
               layout
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}

@@ -39,7 +39,6 @@ export const getSharesByCategoryName = async function (categoryName, userId) {
   return data;
 };
 
-//Test function to get all Categories
 export const getCategories = async function (userId) {
   const { data, error } = await supabase
     .from("categories")
@@ -54,6 +53,21 @@ export const getCategories = async function (userId) {
   return data;
 };
 
+export const getCategoryById = async function (categoryId) {
+  const { data, error } = await supabase
+    .from("categories")
+    .select("*")
+    .eq("id", categoryId)
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Category details could not be loaded");
+  }
+
+  return data;
+};
+
 //Get a category list with details of all categories user have items in
 export const getActiveCategories = async function (categories) {
   const { data, error } = await supabase
@@ -63,7 +77,7 @@ export const getActiveCategories = async function (categories) {
 
   if (error) {
     console.log(error);
-    throw new Error("Category details could not be loaded");
+    throw new Error("Categories details could not be loaded");
   }
 
   return data;
@@ -124,20 +138,12 @@ export const getSharedItems = async function (userId, email) {
     throw new Error("Cannot get shared users names");
   }
 
-  const uniqueCategories = new Array(
-    new Set(
-      dataItems.map((el) => {
-        el.categoryId;
-      })
-    )
-  );
-
-  const categorySharedNames = [];
+  const categorySharedNames = new Map();
   data.forEach((cat) => {
-    categorySharedNames.push({
-      categoryId: cat.categoryId,
-      sharedName: dataName.find((el) => el.id === cat.userId).fullName,
-    });
+    categorySharedNames.set(
+      cat.categoryId,
+      dataName.find((el) => el.id === cat.userId).fullName
+    );
   });
 
   const sharedCategories = data.map((el) => el.categoryId);

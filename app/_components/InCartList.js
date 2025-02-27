@@ -27,7 +27,7 @@ export default function InCartList({ inCartItems, toggleItem, itemsToBuy }) {
         <AnimatePresence>
           {inCartItems.map((item) => (
             <motion.div
-              key={item.name}
+              key={`${item.name}-${item.id}`}
               layout
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
