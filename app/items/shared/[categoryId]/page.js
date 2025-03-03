@@ -1,12 +1,10 @@
-import BackButton from "@/app/_components/BackButton";
-import ItemRowView from "@/app/_components/ItemRowView";
+import SharedItems from "@/app/_components/SharedItems";
 import { auth } from "@/app/_lib/auth";
 import {
   getCategoryById,
   getSameCategoryItems,
   getSharedItems,
 } from "@/app/_lib/data-services";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }) {
@@ -33,28 +31,15 @@ export default async function Page({ params }) {
     Array.from(categorySharedNames.keys())
   );
 
-  console.log(sameCategoryItems);
   //----
 
   return (
-    <div className="max-w-6xl mx-auto mt-8">
-      {sameCategoryItems.length > 0 && (
-        <>
-          <p>
-            There are items in your shopping cart from other{" "}
-            {categoryDetails.name} lists.
-          </p>
-          <button>Include all items</button>
-        </>
-      )}
-      <h2>{`Here are the ${
-        categoryDetails.name
-      } items shared with you by ${categorySharedNames.get(categoryId)}`}</h2>
-      {items.map((itemRow) => (
-        <ItemRowView item={itemRow} key={`${itemRow.name}-${itemRow.id}`} />
-      ))}
-      <Link href={`/shopping/shared/${categoryId}`}>Start shopping</Link>
-      <BackButton>Back</BackButton>
-    </div>
+    <SharedItems
+      sameCategoryItems={sameCategoryItems}
+      categoryDetails={categoryDetails}
+      items={items}
+      categorySharedNames={categorySharedNames}
+      categoryId={categoryId}
+    />
   );
 }
