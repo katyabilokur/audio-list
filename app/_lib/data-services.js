@@ -68,6 +68,58 @@ export const getCategoryById = async function (categoryId) {
   return data;
 };
 
+export const getSameCategoryItems = async function (
+  userId,
+  categoryId,
+  categoryName,
+  sharedCatIds
+) {
+  //Step 1 find all shared categories with the same name
+  const { data, error } = await supabase
+    .from("categories")
+    .select("id")
+    .in("id", [...sharedCatIds])
+    .ilike("name", categoryName);
+
+  if (error) {
+    console.log(error);
+    throw new Error("Categories could not be loaded");
+  }
+
+  //Step 2 Find own category with the same name
+  const { data: dataUser, error: errorUser } = await supabase
+    .from("categories")
+    .select("id")
+    .eq("userId", userId)
+    .ilike("name", categoryName)
+    .single();
+
+  if (errorUser) {
+    console.log(errorUser);
+    throw new Error("User category cannot be loaded");
+  }
+
+  const uniqueCatIds = Array.from(
+    new Set([...data, dataUser].map((item) => item.id))
+  ).filter((el) => el !== categoryId);
+
+  if (uniqueCatIds.length === 0) return [];
+
+  //Step 3. If there are more categories shared, find elements
+  const { data: dataItems, error: errorItems } = await supabase
+    .from("items")
+    .select("*")
+    .in("categoryId", uniqueCatIds);
+
+  if (errorItems) {
+    throw new Error(
+      `Shopping items for shared ${categoryName} cannot be loaded`
+    );
+  }
+
+  return dataItems;
+};
+
 //Get a category list with details of all categories user have items in
 export const getActiveCategories = async function (categories) {
   const { data, error } = await supabase

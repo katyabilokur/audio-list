@@ -23,9 +23,14 @@ export default async function Home() {
     curUserId,
     session.user.email
   );
-  const sharedCategories = await getActiveCategories(
-    sharedItems.map((el) => el.categoryId)
-  );
+
+  let sharedCategories = null;
+
+  if (sharedItems?.length > 0) {
+    sharedCategories = await getActiveCategories(
+      sharedItems.map((el) => el.categoryId)
+    );
+  }
 
   return (
     <div className="flex flex-col h-full justify-between">
@@ -42,7 +47,7 @@ export default async function Home() {
         </p>
       )}
 
-      {sharedItems.length > 0 && (
+      {sharedItems?.length > 0 && (
         <ShoppingLists
           shared={true}
           sharedNames={categorySharedNames}

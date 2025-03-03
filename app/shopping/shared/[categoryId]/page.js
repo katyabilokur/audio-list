@@ -20,6 +20,11 @@ export default async function Page({ params }) {
 
   const categoryDetails = await getCategoryById(categoryId);
   const inCartItemsId = await getTempItemsInCart(categoryId);
+  console.log(categoryDetails);
+
+  //Check if there categories with the same name to include items
+  //TODO:
+  //----
 
   if (items.length === 0) notFound();
   //--------
