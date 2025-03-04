@@ -1,4 +1,3 @@
-import AnimatedLists from "@/app/_components/AnimatedLists";
 import ShoppingList from "@/app/_components/ShoppingList";
 import { auth } from "@/app/_lib/auth";
 import {

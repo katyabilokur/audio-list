@@ -19,12 +19,11 @@ export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
 
   useEffect(() => {
     setItems(
-      categoryItems.filter((item) => !alreadyInCartIds.includes(item.id))
+      categoryItems.filter(
+        (item) => !inCartItems.some((inCart) => inCart.id === item.id)
+      )
     );
-    setInCartItems(
-      categoryItems.filter((item) => alreadyInCartIds.includes(item.id))
-    );
-  }, [categoryItems, alreadyInCartIds]);
+  }, [categoryItems, inCartItems]);
 
   async function handleFinishShopping() {
     if (inCartItems.length > 0) {
