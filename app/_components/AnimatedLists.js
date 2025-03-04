@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import InCartList from "./InCartList";
 import { deleteItems, updateCartItem } from "../_lib/helpers";
@@ -16,6 +16,15 @@ export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
   const [inCartItems, setInCartItems] = useState(() =>
     categoryItems.filter((item) => alreadyInCartIds.includes(item.id))
   );
+
+  useEffect(() => {
+    setItems(
+      categoryItems.filter((item) => !alreadyInCartIds.includes(item.id))
+    );
+    setInCartItems(
+      categoryItems.filter((item) => alreadyInCartIds.includes(item.id))
+    );
+  }, [categoryItems, alreadyInCartIds]);
 
   async function handleFinishShopping() {
     if (inCartItems.length > 0) {
@@ -69,7 +78,7 @@ export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
       <InCartList
         inCartItems={inCartItems}
         toggleItem={toggleItem}
-        itemsToBuy={categoryItems.length}
+        itemsToBuy={items.length}
       />
 
       <div className="flex gap-2">

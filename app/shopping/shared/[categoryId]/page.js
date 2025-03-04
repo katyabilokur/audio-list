@@ -1,11 +1,20 @@
 import AnimatedLists from "@/app/_components/AnimatedLists";
+import ShoppingList from "@/app/_components/ShoppingList";
 import { auth } from "@/app/_lib/auth";
-import { getCategoryById, getSharedItems } from "@/app/_lib/data-services";
+import {
+  getCategoryById,
+  getSameCategoryItems,
+  getSharedItems,
+} from "@/app/_lib/data-services";
 import { getTempItemsInCart } from "@/app/_lib/data-services-redis";
 
-export default async function Page({ params }) {
+export default async function Page({ params, searchParams }) {
+  const searchPar = await searchParams;
+  const showExtraItems = searchPar.show === "all";
+
   //TODO: code refactoring to create a global state.
-  // The following code is repeated from View shared page
+  // Some  code is repeated from View shared page
+
   const session = await auth();
 
   const parameters = await params;
@@ -18,22 +27,32 @@ export default async function Page({ params }) {
 
   const items = sharedItems.filter((item) => item.categoryId === categoryId);
 
-  const categoryDetails = await getCategoryById(categoryId);
-  const inCartItemsId = await getTempItemsInCart(categoryId);
-  console.log(categoryDetails);
-
-  //Check if there categories with the same name to include items
-  //TODO:
-  //----
-
   if (items.length === 0) notFound();
-  //--------
+
+  const categoryDetails = await getCategoryById(categoryId);
+
+  //-----
+
+  const sameCategoryItems = await getSameCategoryItems(
+    session.user.userId,
+    categoryId,
+    categoryDetails.name,
+    Array.from(categorySharedNames.keys())
+  );
+
+  const inCartItemsIds = await getTempItemsInCart(categoryId, [
+    ...new Set(sameCategoryItems.map((el) => el.categoryId)),
+  ]);
+
   return (
-    <div className="max-w-6xl mx-auto mt-8">
-      <h2>{`Start shopping for ${
-        categoryDetails.name
-      }  shared with you by ${categorySharedNames.get(categoryId)}`}</h2>
-      <AnimatedLists categoryItems={items} alreadyInCartIds={inCartItemsId} />
-    </div>
+    <ShoppingList
+      extraItems={sameCategoryItems}
+      showExtraItemsDefault={showExtraItems}
+      categorySharedNames={categorySharedNames}
+      categoryId={categoryId}
+      categoryDetails={categoryDetails}
+      items={items}
+      inCartItemsIds={inCartItemsIds}
+    />
   );
 }

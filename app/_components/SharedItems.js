@@ -4,6 +4,7 @@ import Link from "next/link";
 import BackButton from "./BackButton";
 import ItemRowView from "./ItemRowView";
 import { useState } from "react";
+import SameCategoryItems from "./SameCategoryItems";
 
 function SharedItems({
   sameCategoryItems,
@@ -30,15 +31,11 @@ function SharedItems({
   return (
     <div className="max-w-6xl mx-auto mt-8">
       {sameCategoryItems.length > 0 && (
-        <>
-          <p>
-            There are items in your shopping cart from other
-            {categoryDetails.name} lists.
-          </p>
-          <button onClick={handleDisplayExtraItems}>
-            {!showExtraItems ? "Include all items" : "Hide extra items"}
-          </button>
-        </>
+        <SameCategoryItems
+          showExtraItems={showExtraItems}
+          onClickHandle={handleDisplayExtraItems}
+          categoryDetails={categoryDetails}
+        />
       )}
       <h2>
         {showExtraItems
@@ -50,7 +47,15 @@ function SharedItems({
       {itemsToShow.map((itemRow) => (
         <ItemRowView item={itemRow} key={`${itemRow.name}-${itemRow.id}`} />
       ))}
-      <Link href={`/shopping/shared/${categoryId}`}>Start shopping</Link>
+      <Link
+        href={
+          showExtraItems
+            ? `/shopping/shared/${categoryId}?show=all`
+            : `/shopping/shared/${categoryId}`
+        }
+      >
+        Start shopping
+      </Link>
       <BackButton>Back</BackButton>
     </div>
   );
