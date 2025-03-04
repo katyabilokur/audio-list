@@ -10,7 +10,7 @@ export default function InCartList({ inCartItems, toggleItem, itemsToBuy }) {
     setOpen((prev) => !prev);
   }
   useEffect(() => {
-    if (inCartItems.length === itemsToBuy) {
+    if (itemsToBuy === 0) {
       setOpen(true);
     }
   }, [inCartItems.length, itemsToBuy]);
