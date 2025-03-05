@@ -23,12 +23,16 @@ export default async function Page({ params }) {
     session.user.email
   );
 
-  const sameCategoryItems = await getSameCategoryItems(
-    session.user.userId,
-    categoryDetails.id,
-    categoryName,
-    Array.from(categorySharedNames.keys())
-  );
+  const sameCategoryItems = [];
+
+  if (categorySharedNames.length > 0) {
+    sameCategoryItems = await getSameCategoryItems(
+      session.user.userId,
+      categoryDetails.id,
+      categoryName,
+      Array.from(categorySharedNames.keys())
+    );
+  }
 
   return (
     <OwnItems
