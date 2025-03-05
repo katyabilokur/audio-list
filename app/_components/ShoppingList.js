@@ -26,7 +26,9 @@ function ShoppingList({
       return newShowExtraItems;
     });
   }
-  const sharerName = categorySharedNames.get(categoryId);
+
+  let sharerName = "";
+  sharerName = categorySharedNames?.get(categoryId);
 
   return (
     <>

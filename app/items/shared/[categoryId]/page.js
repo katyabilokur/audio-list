@@ -24,12 +24,16 @@ export default async function Page({ params }) {
   if (items.length === 0) notFound();
 
   //Check if there are categories with the same name to include items
-  const sameCategoryItems = await getSameCategoryItems(
-    session.user.userId,
-    categoryId,
-    categoryDetails.name,
-    Array.from(categorySharedNames.keys())
-  );
+  const sameCategoryItems = [];
+
+  if (categorySharedNames?.length > 0) {
+    sameCategoryItems = await getSameCategoryItems(
+      session.user.userId,
+      categoryId,
+      categoryDetails.name,
+      Array.from(categorySharedNames.keys())
+    );
+  }
 
   //----
 

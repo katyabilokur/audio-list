@@ -25,7 +25,7 @@ export default async function Page({ params }) {
 
   const sameCategoryItems = [];
 
-  if (categorySharedNames.length > 0) {
+  if (categorySharedNames?.length > 0) {
     sameCategoryItems = await getSameCategoryItems(
       session.user.userId,
       categoryDetails.id,

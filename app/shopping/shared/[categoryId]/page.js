@@ -31,13 +31,16 @@ export default async function Page({ params, searchParams }) {
   const categoryDetails = await getCategoryById(categoryId);
 
   //-----
+  const sameCategoryItems = [];
 
-  const sameCategoryItems = await getSameCategoryItems(
-    session.user.userId,
-    categoryId,
-    categoryDetails.name,
-    Array.from(categorySharedNames.keys())
-  );
+  if (categorySharedNames?.length > 0) {
+    sameCategoryItems = await getSameCategoryItems(
+      session.user.userId,
+      categoryId,
+      categoryDetails.name,
+      Array.from(categorySharedNames.keys())
+    );
+  }
 
   const inCartItemsIds = await getTempItemsInCart(categoryId, [
     ...new Set(sameCategoryItems.map((el) => el.categoryId)),

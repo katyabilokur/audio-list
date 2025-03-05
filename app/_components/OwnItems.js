@@ -42,7 +42,7 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
         >
           Start shopping
         </Link>
-        <BackButton>Back</BackButton>
+        <BackButton redirectPath={"/home"}>Back</BackButton>
         <BottomItemsNavigation
           sharedItemsExist={sameCategoryItems.length > 0}
           items={itemsToShow}
