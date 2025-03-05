@@ -37,7 +37,11 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
         {itemsToShow.map((itemRow) => (
           <ItemRowView item={itemRow} key={`${itemRow.name}-${itemRow.id}`} />
         ))}
-        <Link href={`/shopping/${categoryName}`}>Start shopping</Link>
+        <Link
+          href={`/shopping/${categoryName}${showExtraItems ? "?show=all" : ""}`}
+        >
+          Start shopping
+        </Link>
         <BackButton>Back</BackButton>
         <BottomItemsNavigation
           sharedItemsExist={sameCategoryItems.length > 0}

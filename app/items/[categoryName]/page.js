@@ -38,26 +38,4 @@ export default async function Page({ params }) {
       categoryDetails={categoryDetails}
     />
   );
-
-  // return (
-  //   <div className="max-w-6xl mx-auto mt-8">
-  //     {categoryItems.length > 0 && (
-  //       <>
-  //         <h2>{categoryName}</h2>
-  //         {categoryItems.map((itemRow) => (
-  //           <ItemRowView item={itemRow} key={`${itemRow.name}-${itemRow.id}`} />
-  //         ))}
-  //         <Link href={`/shopping/${categoryName}`}>Start shopping</Link>
-  //         <BackButton>Back</BackButton>
-  //         <BottomItemsNavigation
-  //           items={categoryItems}
-  //           categoryName={categoryName}
-  //         />
-  //       </>
-  //     )}
-  //     {categoryItems.length === 0 && (
-  //       <p>No shopping items for {categoryName}</p>
-  //     )}
-  //   </div>
-  // );
 }
