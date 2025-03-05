@@ -34,11 +34,9 @@ export default async function Page({ params, searchParams }) {
     Array.from(categorySharedNames.keys())
   );
 
-  //TODO: BUG: the bug is here
   const inCartItemsId = await getTempItemsInCart(categoryDetails.id, [
     ...new Set(sameCategoryItems.map((el) => el.categoryId)),
   ]);
-  // await getTempItemsInCart(categoryItems[0].categoryId);
 
   return (
     <ShoppingList

@@ -26,6 +26,7 @@ function ShoppingList({
       return newShowExtraItems;
     });
   }
+  const sharerName = categorySharedNames.get(categoryId);
 
   return (
     <>
@@ -37,10 +38,11 @@ function ShoppingList({
         />
       )}
       <div className="max-w-6xl mx-auto mt-8">
-        <h2>{`Start shopping for ${
-          categoryDetails.name
-        }  shared with you by ${categorySharedNames.get(categoryId)}`}</h2>
+        <h2>{`Start shopping for ${categoryDetails.name} ${
+          sharerName ? `shared with you by ${sharerName}` : ""
+        }`}</h2>
         <AnimatedLists
+          extraItems={extraItems}
           categoryItems={itemsToShow}
           alreadyInCartIds={inCartItemsIds}
         />

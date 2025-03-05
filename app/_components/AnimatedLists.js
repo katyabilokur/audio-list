@@ -8,13 +8,21 @@ import BackButton from "./BackButton";
 import { redirect } from "next/navigation";
 import ConfirmationDialog from "./dialogs/ConfirmationDialog";
 
-export default function AnimatedLists({ categoryItems, alreadyInCartIds }) {
+export default function AnimatedLists({
+  categoryItems,
+  alreadyInCartIds,
+  extraItems,
+}) {
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [items, setItems] = useState(() =>
     categoryItems.filter((item) => !alreadyInCartIds.includes(item.id))
   );
   const [inCartItems, setInCartItems] = useState(() =>
-    categoryItems.filter((item) => alreadyInCartIds.includes(item.id))
+    [
+      ...new Map(
+        [...categoryItems, ...extraItems].map((item) => [item.id, item])
+      ).values(),
+    ].filter((item) => alreadyInCartIds.includes(item.id))
   );
 
   useEffect(() => {
