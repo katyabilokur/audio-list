@@ -6,6 +6,7 @@ export default function ClearItemsDialog({
   onClose,
   onClick,
   categoryName,
+  sharedItemsExist,
 }) {
   return (
     <Dialog
@@ -17,7 +18,9 @@ export default function ClearItemsDialog({
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
         <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
           <Description>
-            This will permanently delete all items from {categoryName}
+            This will permanently delete all items from {categoryName}.{" "}
+            {sharedItemsExist &&
+              `Please note, this will clear only your own items. It will not remove any items shared with you.`}
           </Description>
           <p>Are you sure you want to clear all selected items?</p>
           <div className="flex gap-4">

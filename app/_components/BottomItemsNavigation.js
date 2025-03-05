@@ -5,7 +5,7 @@ import { clearCategoryItems } from "../_lib/actions";
 import Link from "next/link";
 import ClearItemsDialog from "./dialogs/ClearItemsDialog";
 
-function BottomItemsNavigation({ items, categoryName, existingShares }) {
+function BottomItemsNavigation({ items, categoryName, sharedItemsExist }) {
   const [isOpenClear, setIsOpenClear] = useState(false);
 
   async function handleClear() {
@@ -18,6 +18,7 @@ function BottomItemsNavigation({ items, categoryName, existingShares }) {
       <Link href={`/items/${categoryName}/edit`}>Edit</Link>
       <button onClick={() => setIsOpenClear(true)}>Clear</button>
       <ClearItemsDialog
+        sharedItemsExist={sharedItemsExist}
         isOpen={isOpenClear}
         onClose={() => setIsOpenClear(false)}
         onClick={handleClear}

@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
-import { getCategories, getCategoryIdByName } from "./data-services";
+import { getCategories } from "./data-services";
 import { mapCategories } from "./dataHelpers";
 import { supabase } from "./supabase";
 import { z } from "zod";
@@ -58,7 +58,8 @@ export async function shareList(formData) {
     return { success: true };
   }
 
-  const catId = await getCategoryIdByName(categoryName, userId);
+  const catDetails = await getCategoryDetailsByName(categoryName, userId);
+  const catId = catDetails.id;
 
   if (!catId) {
     return { error: "Category not found" };

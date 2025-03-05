@@ -6,10 +6,10 @@ import {
   defaultCategoryFixed,
 } from "./dataHelpers";
 
-export const getCategoryIdByName = async function (categoryName, userId) {
+export const getCategoryDetailsByName = async function (categoryName, userId) {
   const { data, error } = await supabase
     .from("categories")
-    .select("id")
+    .select("*")
     .eq("name", categoryName)
     .eq("userId", userId)
     .single();
@@ -23,13 +23,13 @@ export const getCategoryIdByName = async function (categoryName, userId) {
 };
 
 export const getSharesByCategoryName = async function (categoryName, userId) {
-  const catId = await getCategoryIdByName(categoryName, userId);
+  const catDetails = await getCategoryDetailsByName(categoryName, userId);
 
   const { data, error } = await supabase
     .from("shares")
     .select("email")
     .eq("userId", userId)
-    .eq("categoryId", catId.id);
+    .eq("categoryId", catDetails.id);
 
   if (error) {
     console.error(error);
