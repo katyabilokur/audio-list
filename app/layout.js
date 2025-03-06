@@ -27,7 +27,8 @@ export default async function RootLayout({ children }) {
         {session?.user && (
           <Navigation image={session.user.image} name={session.user.name} />
         )}
-        <main className="h-[calc(100vh-5rem)] w-160 mx-auto">{children}</main>
+        {/* <main className="h-[calc(100vh-5rem)] w-160 mx-auto">{children}</main> */}
+        <main className="">{children}</main>
       </body>
     </html>
   );
