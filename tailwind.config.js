@@ -101,11 +101,16 @@ module.exports = {
           "50%": { "background-position": "50% 70%" },
           "100%": { "background-position": "0% 20%" },
         },
+        shimmer: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         "beat-one": "beat 1.5s ease-out infinite",
         "beat-two": "beat 1.5s ease-out .4s infinite",
         "gradient-bg": "gradient 15s ease infinite",
+        scanline: "shimmer 1.2s ease-in-out 1s forwards",
       },
     },
   },

@@ -6,14 +6,25 @@ export default function HomeIntro() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-primary_rose-200 via-primary_blue-200 to-primary_tur-200 bg-[length:200%_200%] animate-gradient-bg">
       <div className="flex w-80 sm:min-w-160 mx-auto flex-col gap-4 items-center justify-center">
-        <Image
+        {/* <Image
           src={welcomePic}
           placeholder="blur"
           quality={100}
           loading="lazy"
           alt="Intro Audio List app picture"
           className="w-72 sm:w-80 h-72 sm:h-80 rounded-3xl border border-white mt-4 mb-3 sm:mt-8 sm:mb-4"
-        />
+        /> */}
+        <div className="relative w-72 sm:w-80 h-72 sm:h-80 overflow-hidden rounded-3xl border border-white mt-4 mb-3 sm:mt-8 sm:mb-4">
+          <Image
+            src={welcomePic}
+            placeholder="blur"
+            quality={100}
+            loading="lazy"
+            alt="Intro picture"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-[150%] h-full transform -translate-x-full animate-scanline"></div>
+        </div>
         <h1 className="mb-2 text-4xl sm:text-5xl font-extrabold leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-r to-primary_tur-700 from-primary_purple-800">
           Audio List
         </h1>
