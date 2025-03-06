@@ -17,6 +17,7 @@ module.exports = {
           400: "#58b1b8",
           500: "#3c959e",
           600: "#357b85",
+          700: "#30646e",
         },
         primary_purple: {
           100: "#f1edfa",
@@ -26,6 +27,7 @@ module.exports = {
           500: "#a577db",
           600: "#9659ce",
           700: "#7c3eb2",
+          800: "#693792",
         },
         primary_blue: {
           100: "#e3e9f6",
