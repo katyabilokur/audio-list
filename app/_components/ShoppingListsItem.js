@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { capitalizeString } from "../_lib/dataHelpers";
 
 function ShoppingListsItem({ category, items, urlPath, sharerName }) {
   const curItems = items.filter((el) => el.categoryId === category.id);
@@ -9,14 +10,22 @@ function ShoppingListsItem({ category, items, urlPath, sharerName }) {
   //   }
 
   return (
-    <div>
-      <Link href={`/items/${urlPath}`}>
-        <span>
-          {category.name} {curItems.length} items
+    <Link
+      href={`/items/${urlPath}`}
+      className="text-zinc-600 hover:text-primary_rose-500 "
+    >
+      <span className="font-semibold text-lg">
+        {capitalizeString(category.name)}
+      </span>
+      {"  "}
+      &ndash;{"  "}
+      {curItems.length} {curItems.length === 1 ? "item" : "items"}
+      {sharerName && (
+        <span className="italic text-zinc-400">
+          {"   "}(by {sharerName})
         </span>
-        {sharerName && <span>(shared by {sharerName})</span>}
-      </Link>
-    </div>
+      )}
+    </Link>
   );
 }
 

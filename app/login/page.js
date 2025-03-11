@@ -1,4 +1,5 @@
 import SignInButton from "../_components/SignInButton";
+import Card from "../_components/visual/Card";
 import Logo from "../_components/visual/Logo";
 
 export const metadata = {
@@ -8,7 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <div className="flex justify-center items-start pt-24 min-h-screen bg-gradient-to-r from-primary_rose-200 via-primary_blue-200 to-primary_tur-200 bg-[length:200%_200%] animate-gradient-bg">
-      <div className="text-center p-8 sm:p-16 pb-16 sm:pb-20 flex flex-col gap-8 w-80 sm:w-96 rounded-2xl bg-white border border-primary_purple-800">
+      <Card extraStyling="p-8 sm:p-16 pb-16 sm:pb-20">
         <div className="mx-auto relative h-16 w-16 stroke-1">
           <Logo colour="text-primary_purple-700" />
         </div>
@@ -23,7 +24,7 @@ export default function Page() {
           </span>
         </p>
         <SignInButton />
-      </div>
+      </Card>
     </div>
   );
 }

@@ -12,3 +12,7 @@ export const maxSharesNumber = 5;
 export const defaultCategory1 = "Grocery";
 export const defaultCategory2 = "Household";
 export const defaultCategoryFixed = "Other";
+
+export function capitalizeString(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}

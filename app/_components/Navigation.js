@@ -3,8 +3,8 @@ import Logo from "./visual/Logo";
 
 export default function Navigation({ image, name }) {
   return (
-    <nav className=" bg-primary_purple-600 h-20 sm:h-24 py-2 px-6 sm:p-4 rounded-b-3xl flex justify-center items-center">
-      <ul className="flex justify-between list-none w-96 sm:w-160">
+    <nav className="min-w-screen bg-primary_purple-600 h-20 sm:h-24 py-2 px-6 sm:p-4 flex justify-center items-center">
+      <ul className="flex justify-between list-none w-80 sm:w-160">
         <li>
           <Link href="/">
             <div className="mx-auto relative h-8 w-8 sm:h-12 sm:w-12 stroke-[1.2]">

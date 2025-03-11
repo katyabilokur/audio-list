@@ -139,7 +139,8 @@ const AudioRecorder = ({ userId }) => {
             <h4>Start recording your shopping list</h4>
             <RecordButton
               onClick={startRecording}
-              classToAdd="bg-green-500 hover:bg-green-400 "
+              // classToAdd="bg-green-500 hover:bg-green-400 "
+              classToAdd="bg-button-gd hover:bg-button-gl "
             >
               <MicrophoneIcon className="h-8 w-8" />
             </RecordButton>

@@ -11,6 +11,8 @@ module.exports = {
         //TODO: #6ed6bc  add green
         //NOTE: for text use Tailwind 'zinc' colour
         primary_tur: {
+          25: "#fbfefd",
+          50: "#f1faf9",
           100: "#dbf2f2",
           200: "#bce4e5",
           300: "#7DC8CC", //main
@@ -54,33 +56,13 @@ module.exports = {
           500: "#f94516",
           600: "#ea2b0c",
         },
-        //TODO: change temperature
-        primary: {
-          50: "#E1E8EF",
-          100: "#D4DEE7",
-          200: "#B7C7D7",
-          300: "#99B0C7",
-          400: "#7C99B6",
-          500: "#5E82A6",
-          600: "#4C6B8A",
-          700: "#3C546C",
-          800: "#2C3D4F",
-          900: "#1B2631",
-          950: "#141C24",
-        },
-        accent: {
-          //TODO: remove
-          50: "#FAF5F0",
-          100: "#F4ECE1",
-          200: "#E8D6BF",
-          300: "#DDC2A2",
-          400: "#D2AF84",
-          500: "#C69963",
-          600: "#B78343",
-          700: "#926835",
-          800: "#6C4D28",
-          900: "#4B351B",
-          950: "#382814",
+        button: {
+          yl: "",
+          yd: "",
+          gl: "#12fa63",
+          gd: "#03e452",
+          rl: "",
+          rd: "",
         },
       },
       spacing: {
