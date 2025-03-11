@@ -120,9 +120,9 @@ const AudioRecorder = ({ userId }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {processingStatus && <SpinnerWithText text={processingType} />}
-      <div className="audio-controls h-100 w-100">
+      <div className="w-80 sm:w-96 audio-controls h-100 w-100 flex flex-col items-center gap-4 mt-2 mb-4">
         {!permission ? (
           <>
             <h4>Please get permissions to use your microphone</h4>

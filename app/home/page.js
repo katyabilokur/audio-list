@@ -37,7 +37,8 @@ export default async function Home() {
   return (
     <Container className="min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-6rem)] bg-primary_tur-25 flex flex-col  ">
       <div className="flex flex-col items-center gap-6 mt-5 sm:mt-8">
-        <Card extraStyling="p-2 sm:p-4 py-4 sm:py-8">
+        <AudioRecorder className="mt-auto" userId={curUserId} />
+        <Card extraStyling="pt-4 pb-8 sm:py-8 px-4">
           {items.length > 0 ? (
             <ShoppingLists
               categories={categories}
@@ -52,7 +53,7 @@ export default async function Home() {
           )}
         </Card>
         {sharedItems?.length > 0 && (
-          <Card extraStyling="p-2 sm:p-4 py-4 sm:py-8">
+          <Card extraStyling="pt-4 pb-8 sm:py-8 px-4">
             <ShoppingLists
               shared={true}
               sharedNames={categorySharedNames}
@@ -62,7 +63,6 @@ export default async function Home() {
             />
           </Card>
         )}
-        <AudioRecorder className="mt-auto" userId={curUserId} />
       </div>
     </Container>
   );
