@@ -8,6 +8,7 @@ import {
   getUserItems,
 } from "../_lib/data-services";
 import Card from "../_components/visual/Card";
+import AudioContainer from "../_components/AudioContainer";
 
 export const metadata = {
   title: "Home",
@@ -36,8 +37,7 @@ export default async function Home() {
 
   return (
     <Container className="min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-6rem)] bg-primary_tur-25 flex flex-col  ">
-      <div className="flex flex-col items-center gap-6 mt-5 sm:mt-8">
-        <AudioRecorder className="mt-auto" userId={curUserId} />
+      <AudioContainer curUserId={curUserId}>
         <Card extraStyling="pt-4 pb-8 sm:py-8 px-4">
           {items.length > 0 ? (
             <ShoppingLists
@@ -63,7 +63,7 @@ export default async function Home() {
             />
           </Card>
         )}
-      </div>
+      </AudioContainer>
     </Container>
   );
 }

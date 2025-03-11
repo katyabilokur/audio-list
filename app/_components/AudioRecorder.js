@@ -18,7 +18,7 @@ import { redirect } from "next/navigation";
 
 const mimeType = "audio/webm";
 
-const AudioRecorder = ({ userId }) => {
+const AudioRecorder = ({ userId, setProcessingStatus, setProcessingType }) => {
   const [permission, setPermission] = useState(false);
   const [stream, setStream] = useState(null);
 
@@ -28,8 +28,8 @@ const AudioRecorder = ({ userId }) => {
   const [audio, setAudio] = useState(null);
 
   //audio recording processing
-  const [processingStatus, setProcessingStatus] = useState(false);
-  const [processingType, setProcessingType] = useState("");
+  // const [processingStatus, setProcessingStatus] = useState(false);
+  // const [processingType, setProcessingType] = useState("");
 
   const getMicrophonePermission = async () => {
     if ("MediaRecorder" in window) {
@@ -121,7 +121,7 @@ const AudioRecorder = ({ userId }) => {
 
   return (
     <div className="flex flex-col items-center">
-      {processingStatus && <SpinnerWithText text={processingType} />}
+      {/* {processingStatus && <SpinnerWithText text={processingType} />} */}
       <div className="w-80 sm:w-96 audio-controls h-100 w-100 flex flex-col items-center gap-4 mt-2 mb-4">
         {!permission ? (
           <>
