@@ -6,6 +6,7 @@ import BottomItemsNavigation from "./BottomItemsNavigation";
 import ItemRowView from "./ItemRowView";
 import SameCategoryItems from "./SameCategoryItems";
 import { useState } from "react";
+import PaperElement from "./visual/PaperElement";
 
 function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
   const [showExtraItems, setShowExtraItems] = useState(false);
@@ -22,9 +23,10 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
       return newShowExtraItems;
     });
   }
+
   return (
     <>
-      <div className="max-w-6xl mx-auto mt-8">
+      <div className="w-96 sm:w-160 mx-auto mt-8">
         {sameCategoryItems.length > 0 && (
           <SameCategoryItems
             showExtraItems={showExtraItems}
@@ -32,11 +34,12 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
             categoryDetails={categoryDetails}
           />
         )}
-
-        <h2>{categoryName}</h2>
-        {itemsToShow.map((itemRow) => (
-          <ItemRowView item={itemRow} key={`${itemRow.name}-${itemRow.id}`} />
-        ))}
+        <PaperElement>
+          <h2>{categoryName}</h2>
+          {itemsToShow.map((itemRow) => (
+            <ItemRowView item={itemRow} key={`${itemRow.name}-${itemRow.id}`} />
+          ))}
+        </PaperElement>
         <Link
           href={`/shopping/${categoryName}${showExtraItems ? "?show=all" : ""}`}
         >

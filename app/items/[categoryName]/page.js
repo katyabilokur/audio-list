@@ -1,4 +1,5 @@
 import OwnItems from "@/app/_components/OwnItems";
+import Container from "@/app/_components/visual/Container";
 import { auth } from "@/app/_lib/auth";
 import {
   getCategoryDetailsByName,
@@ -23,9 +24,9 @@ export default async function Page({ params }) {
     session.user.email
   );
 
-  const sameCategoryItems = [];
+  let sameCategoryItems = [];
 
-  if (categorySharedNames?.length > 0) {
+  if (categorySharedNames?.size > 0) {
     sameCategoryItems = await getSameCategoryItems(
       session.user.userId,
       categoryDetails.id,
@@ -35,11 +36,13 @@ export default async function Page({ params }) {
   }
 
   return (
-    <OwnItems
-      items={categoryItems}
-      categoryName={categoryName}
-      sameCategoryItems={sameCategoryItems}
-      categoryDetails={categoryDetails}
-    />
+    <Container className="relative z-10 min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-6rem)]  bg-primary_rose-200  flex flex-col">
+      <OwnItems
+        items={categoryItems}
+        categoryName={categoryName}
+        sameCategoryItems={sameCategoryItems}
+        categoryDetails={categoryDetails}
+      />
+    </Container>
   );
 }
