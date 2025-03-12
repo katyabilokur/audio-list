@@ -125,18 +125,19 @@ const AudioRecorder = ({ userId, setProcessingStatus, setProcessingType }) => {
       <div className="w-80 sm:w-96 audio-controls h-100 w-100 flex flex-col items-center gap-4 mt-2 mb-4">
         {!permission ? (
           <>
-            <h4>Please get permissions to use your microphone</h4>
             <RecordButton
               onClick={getMicrophonePermission}
               classToAdd="bg-amber-500 hover:bg-amber-400"
             >
               <LockClosedIcon className="h-8 w-8" />
             </RecordButton>
+            <h4 className="text-zinc-700 text-lg">
+              Please get permissions to use your microphone
+            </h4>
           </>
         ) : null}
         {permission && recordingStatus === "inactive" ? (
           <>
-            <h4>Start recording your shopping list</h4>
             <RecordButton
               onClick={startRecording}
               // classToAdd="bg-green-500 hover:bg-green-400 "
@@ -144,12 +145,13 @@ const AudioRecorder = ({ userId, setProcessingStatus, setProcessingType }) => {
             >
               <MicrophoneIcon className="h-8 w-8" />
             </RecordButton>
+            <h4 className="text-zinc-700 text-lg">
+              Start recording your shopping list
+            </h4>
           </>
         ) : null}
         {recordingStatus === "recording" ? (
           <>
-            <h4>Recording in progress</h4>
-
             <RecordButton
               onClick={stopRecording}
               classToAdd="relative flex bg-rose-500 hover:bg-rose-600"
@@ -158,6 +160,7 @@ const AudioRecorder = ({ userId, setProcessingStatus, setProcessingType }) => {
               <span className="animate-beat-two absolute inline-flex h-full w-full rounded-full bg-rose-500"></span>
               <StopIcon className="h-8 w-8 absolute inline-flex" />
             </RecordButton>
+            <h4 className="text-zinc-700 text-lg">Recording in progress</h4>
           </>
         ) : null}
 

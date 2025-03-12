@@ -1,7 +1,7 @@
 export default function PaperElement({ children }) {
   return (
     <div
-      className="bg-white relative w-96 mx-auto my-10 rounded-sm
+      className="flex flex-col bg-white relative my-10 rounded-sm w-11/12 sm:w-5/6 mx-auto py-6
        before:skew-x-[-5deg] before:rotate-[-5deg] before:left-[15px]
       after:skew-x-[5deg] after:rotate-[5deg] after:right-[15px]
      hover:before:left-[5px] hover:after:right-[5px] 

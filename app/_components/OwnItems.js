@@ -7,6 +7,15 @@ import ItemRowView from "./ItemRowView";
 import SameCategoryItems from "./SameCategoryItems";
 import { useState } from "react";
 import PaperElement from "./visual/PaperElement";
+import * as IconSet from "hugeicons-react";
+import { capitalizeString } from "../_lib/dataHelpers";
+
+import { Kalam } from "next/font/google";
+
+const font = Kalam({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+});
 
 function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
   const [showExtraItems, setShowExtraItems] = useState(false);
@@ -24,9 +33,11 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
     });
   }
 
+  const HugeIcon = IconSet[categoryDetails.icon];
+
   return (
     <>
-      <div className="w-96 sm:w-160 mx-auto mt-8">
+      <div className="w-96 sm:w-160 mx-auto mt-8 px-4">
         {sameCategoryItems.length > 0 && (
           <SameCategoryItems
             showExtraItems={showExtraItems}
@@ -35,10 +46,25 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
           />
         )}
         <PaperElement>
-          <h2>{categoryName}</h2>
-          {itemsToShow.map((itemRow) => (
-            <ItemRowView item={itemRow} key={`${itemRow.name}-${itemRow.id}`} />
-          ))}
+          <div className="flex gap-4 mb-2 mx-auto items-end">
+            <HugeIcon className="w-8 h-8 text-primary_tur-500" />
+            <h2 className="text-lg sm:text-xl font-medium text-zinc-600">
+              {capitalizeString(categoryName)}
+            </h2>
+          </div>
+
+          <hr className="w-full h-[1.5px] mt-2 mb-[6px] bg-primary_rose-600 border-0"></hr>
+          <hr className="w-full h-[1.5px] bg-primary_rose-600 border-0 mb-4"></hr>
+          <div className={`${font.className}`}>
+            {itemsToShow.map((itemRow, index) => (
+              <div key={`${itemRow.name}-${itemRow.id}`}>
+                <ItemRowView item={itemRow} />
+                {index < itemsToShow.length - 1 && (
+                  <hr className="w-full border-t border-primary_blue-300 my-2" />
+                )}
+              </div>
+            ))}
+          </div>
         </PaperElement>
         <Link
           href={`/shopping/${categoryName}${showExtraItems ? "?show=all" : ""}`}

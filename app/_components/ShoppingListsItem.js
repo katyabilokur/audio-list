@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { capitalizeString } from "../_lib/dataHelpers";
-import { House01Icon } from "hugeicons-react";
 import * as IconSet from "hugeicons-react";
 
 function ShoppingListsItem({ category, items, urlPath, sharerName }) {
@@ -11,7 +10,7 @@ function ShoppingListsItem({ category, items, urlPath, sharerName }) {
   return (
     <Link
       href={`/items/${urlPath}`}
-      className="text-zinc-600 hover:text-primary_tur-500 flex gap-3 flex-wrap"
+      className="text-zinc-600 hover:text-primary_tur-500 flex gap-3 flex-wrap items-end"
     >
       <HugeIcon className="w-6 h-6 text-primary_tur-500 hover:text-primary_tur-400" />
       <p>

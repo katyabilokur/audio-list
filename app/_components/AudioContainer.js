@@ -11,13 +11,13 @@ export default function AudioContainer({ children, curUserId }) {
   return (
     <div className="relative">
       <div className="flex flex-col items-center gap-6 mt-5 sm:mt-8 ">
+        {children}
         <AudioRecorder
           setProcessingStatus={setProcessingStatus}
           setProcessingType={setProcessingType}
           className="mt-auto"
           userId={curUserId}
         />
-        {children}
       </div>
       {processingStatus && (
         <div className="absolute inset-0 flex items-center justify-center bg-white/30 backdrop-blur-sm z-50">
