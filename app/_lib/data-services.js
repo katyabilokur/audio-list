@@ -124,7 +124,7 @@ export const getSameCategoryItems = async function (
 export const getActiveCategories = async function (categories) {
   const { data, error } = await supabase
     .from("categories")
-    .select("id,name")
+    .select("id,name,icon")
     .in("id", categories);
 
   if (error) {
