@@ -9,9 +9,12 @@ export function mapCategories(categoriesList, byId = true) {
 }
 
 export const maxSharesNumber = 5;
-export const defaultCategory1 = "Grocery";
-export const defaultCategory2 = "Household";
-export const defaultCategoryFixed = "Other";
+export const defaultCategory1 = { name: "Grocery", icon: "VegetarianFoodIcon" };
+export const defaultCategory2 = { name: "Household", icon: "House03Icon" };
+export const defaultCategoryFixed = {
+  name: "Other",
+  icon: "ShoppingBag01Icon",
+};
 
 export function capitalizeString(word) {
   return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();

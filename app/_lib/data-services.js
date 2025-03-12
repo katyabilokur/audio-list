@@ -274,9 +274,21 @@ export async function createUser(newUser) {
   const { data: dataCat, error: errorCat } = await supabase
     .from("categories")
     .insert([
-      { name: defaultCategory1, userId: data[0].id },
-      { name: defaultCategory2, userId: data[0].id },
-      { name: defaultCategoryFixed, userId: data[0].id },
+      {
+        name: defaultCategory1.name,
+        userId: data[0].id,
+        icon: defaultCategory1.icon,
+      },
+      {
+        name: defaultCategory2.name,
+        userId: data[0].id,
+        icon: defaultCategory2.icon,
+      },
+      {
+        name: defaultCategoryFixed.name,
+        userId: data[0].id,
+        icon: defaultCategoryFixed.icon,
+      },
     ])
     .select();
 
