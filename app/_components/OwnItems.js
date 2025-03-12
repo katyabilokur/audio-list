@@ -66,12 +66,15 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
             ))}
           </div>
         </PaperElement>
+        <BackButton className="my-6 mx-auto" redirectPath={"/home"}>
+          Return Back
+        </BackButton>
+
         <Link
           href={`/shopping/${categoryName}${showExtraItems ? "?show=all" : ""}`}
         >
           Start shopping
         </Link>
-        <BackButton redirectPath={"/home"}>Back</BackButton>
         <BottomItemsNavigation
           sharedItemsExist={sameCategoryItems.length > 0}
           items={itemsToShow}
