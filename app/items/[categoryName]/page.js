@@ -36,7 +36,7 @@ export default async function Page({ params }) {
   }
 
   return (
-    <Container className="relative z-10 min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-6rem)] bg-primary_rose-100  flex flex-col">
+    <Container className="relative z-0 min-h-[calc(100vh+6px)] sm:min-h-[calc(100vh-24px)] bg-primary_rose-100  flex flex-col">
       <OwnItems
         items={categoryItems}
         categoryName={categoryName}

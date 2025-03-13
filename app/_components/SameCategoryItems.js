@@ -4,8 +4,8 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 
 function SameCategoryItems({ categoryDetails, onClickHandle, showExtraItems }) {
   return (
-    <div className="my-2 sm:my-5">
-      <p>
+    <div className="mb-6 sm:mb-8">
+      <p className="mb-2">
         There are items in your to do shopping list from other{" "}
         {categoryDetails.name} lists.
       </p>

@@ -37,7 +37,7 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
 
   return (
     <>
-      <div className="w-96 sm:w-160 mx-auto mt-8 px-4">
+      <div className="xs:w-[360px] w-96 sm:w-160 mx-auto mt-8 px-4">
         {sameCategoryItems.length > 0 && (
           <SameCategoryItems
             showExtraItems={showExtraItems}
@@ -66,7 +66,7 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
             ))}
           </div>
         </PaperElement>
-        <BackButton className="my-6 mx-auto" redirectPath={"/home"}>
+        <BackButton className="mt-6 mx-auto" redirectPath={"/home"}>
           Return Back
         </BackButton>
 

@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "360px",
+      },
       colors: {
         //TODO: #6ed6bc  add green
         //NOTE: for text use Tailwind 'zinc' colour

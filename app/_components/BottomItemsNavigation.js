@@ -26,7 +26,7 @@ function BottomItemsNavigation({
   }
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full bg-white rounded-t-3xl border-t-2 border-t-primary_purple-600">
+    <nav className="h-[72px] fixed bottom-0 left-0 w-[calc(100vw-2px)] bg-white rounded-t-3xl border-t-2 border-t-primary_purple-600">
       <div className="grid grid-cols-4 px-4">
         <div className="border-r-2 border-primary_purple-600 py-4 flex items-center justify-center">
           <Link
