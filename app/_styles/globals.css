@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TODO: set up new colors and change in config */
+:root {
+  --color-tooltip-bg: theme("colors.primary_purple.700");
+  --color-tooltip-text: theme("colors.white");
+}
+
 @layer components {
   .spinner {
     margin: 3.2rem auto 1.6rem;

@@ -70,12 +70,8 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
           Return Back
         </BackButton>
 
-        <Link
-          href={`/shopping/${categoryName}${showExtraItems ? "?show=all" : ""}`}
-        >
-          Start shopping
-        </Link>
         <BottomItemsNavigation
+          showExtraItems={showExtraItems}
           sharedItemsExist={sameCategoryItems.length > 0}
           items={itemsToShow}
           categoryName={categoryName}
