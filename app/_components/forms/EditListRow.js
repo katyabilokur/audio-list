@@ -11,7 +11,7 @@ export default function EditListRow({ row, categories }) {
     focus:border-zinc-200 hover:border-zinc-200`;
 
   return (
-    <div className="flex gap-2">
+    <div className="grid grid-cols-[2fr_1fr_2fr_3fr_2fr] gap-2">
       <input type="hidden" value={row.id} name="itemId" />
       {/* Category selection */}
       <Select

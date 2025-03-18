@@ -20,7 +20,7 @@ export default async function Page({ params }) {
 
   return (
     <Container className="relative z-0 min-h-[calc(100vh-64px)] sm:min-h-[calc(100vh-96px)] bg-primary_blue-100  flex flex-col">
-      <div className="xs:w-[370px] w-96 sm:w-160 md:w-full mx-auto mt-8 px-4">
+      <div className="xs:w-full w-96 sm:w-160 md:w-[900px] mx-auto mt-4 sm:mt-8 px-2 sm:px-4">
         {items.length > 0 && (
           <UpdateItemsForm
             categoryName={parameters.categoryName}

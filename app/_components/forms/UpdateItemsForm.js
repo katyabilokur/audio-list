@@ -6,8 +6,9 @@ import { useFormStatus } from "react-dom";
 import BackButton from "../BackButton";
 import { useState } from "react";
 import PaperElement from "../visual/PaperElement";
-import * as IconSet from "hugeicons-react";
 import { capitalizeString } from "@/app/_lib/dataHelpers";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import TooltipInfo from "../TooltipInfo";
 
 function UpdateItemsForm({ list, categories, categoryName }) {
   const [rows, setRows] = useState(list);
@@ -18,18 +19,15 @@ function UpdateItemsForm({ list, categories, categoryName }) {
     setRemovedIds((prev) => [...prev, id]);
   };
 
-  // const HugeIcon = IconSet[categoryDetails.icon];
-
   return (
     <form
       action={updateListItems}
-      className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+      className="bg-primary-900 py-8 px-2 sm:px-12 text-lg flex gap-6 flex-col"
     >
       <PaperElement>
         <div className="flex gap-4 mb-2 mx-auto items-end">
-          {/* <HugeIcon className="w-8 h-8 text-primary_tur-500" /> */}
           <h2 className="italic text-base sm:text-lg font-medium text-zinc-600">
-            Edit items from {capitalizeString(categoryName)}
+            Edit items from {capitalizeString(categoryName)} list
           </h2>
         </div>
 
@@ -40,7 +38,14 @@ function UpdateItemsForm({ list, categories, categoryName }) {
           <div key={el.name}>
             <div className="flex gap-2 px-4 sm:px-6">
               <EditListRow row={el} categories={categories} />
-              <button onClick={() => handleRemove(el.id)}>X</button>
+              <button
+                data-tooltip-id="delete"
+                data-tooltip-content="Delete item"
+                onClick={() => handleRemove(el.id)}
+              >
+                <XMarkIcon className="h-5 text-zinc-600 hover:text-primary_purple-600 " />
+              </button>
+              <TooltipInfo id="delete" />
             </div>
             {index < rows.length - 1 && (
               <hr className="w-full border-t border-primary_blue-300 my-2" />
@@ -53,8 +58,10 @@ function UpdateItemsForm({ list, categories, categoryName }) {
         name="removedIds"
         value={JSON.stringify(removedIds)}
       />
-      <div className="flex justify-end items-center gap-6">
-        <BackButton>Cancel</BackButton>
+      <div className="flex justify-end items-center gap-8">
+        <BackButton colour="text-primary_blue-500 hover:text-primary_blue-400">
+          Cancel
+        </BackButton>
         <Button />
       </div>
     </form>
@@ -67,7 +74,7 @@ function Button() {
   return (
     <button
       disabled={pending}
-      className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
+      className="mt-5 mb-2 sm:mb-4 text-white text-sm sm:text-base bg-primary_blue-500 border hover:bg-primary_blue-600 focus:ring-4 focus:ring-primary_purple-300 font-medium rounded-2xl px-6 sm:px-8 py-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-zinc-400 disabled:text-zinc-200"
     >
       {pending ? "Saving..." : "Save items"}
     </button>
