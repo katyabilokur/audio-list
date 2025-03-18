@@ -22,7 +22,7 @@ function UpdateItemsForm({ list, categories, categoryName }) {
   return (
     <form
       action={updateListItems}
-      className="bg-primary-900 py-8 px-2 sm:px-12 text-lg flex gap-6 flex-col"
+      className="bg-primary-900 my-4 sm:my-6 px-2 sm:px-12 text-lg flex gap-2 flex-col"
     >
       <PaperElement>
         <div className="flex gap-4 mb-2 mx-auto items-end">
@@ -36,14 +36,14 @@ function UpdateItemsForm({ list, categories, categoryName }) {
 
         {rows.map((el, index) => (
           <div key={el.name}>
-            <div className="flex gap-2 px-4 sm:px-6">
+            <div className="flex gap-2 px-3 sm:px-6">
               <EditListRow row={el} categories={categories} />
               <button
                 data-tooltip-id="delete"
                 data-tooltip-content="Delete item"
                 onClick={() => handleRemove(el.id)}
               >
-                <XMarkIcon className="h-5 text-zinc-600 hover:text-primary_purple-600 " />
+                <XMarkIcon className="h-4 sm:h-5 text-zinc-600 hover:text-primary_purple-600 " />
               </button>
               <TooltipInfo id="delete" />
             </div>
@@ -58,7 +58,7 @@ function UpdateItemsForm({ list, categories, categoryName }) {
         name="removedIds"
         value={JSON.stringify(removedIds)}
       />
-      <div className="flex justify-end items-center gap-8">
+      <div className="flex justify-end align-middle gap-8 mb-4 sm:mb-6">
         <BackButton colour="text-primary_blue-500 hover:text-primary_blue-400">
           Cancel
         </BackButton>
@@ -74,7 +74,7 @@ function Button() {
   return (
     <button
       disabled={pending}
-      className="mt-5 mb-2 sm:mb-4 text-white text-sm sm:text-base bg-primary_blue-500 border hover:bg-primary_blue-600 focus:ring-4 focus:ring-primary_purple-300 font-medium rounded-2xl px-6 sm:px-8 py-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-zinc-400 disabled:text-zinc-200"
+      className="text-white text-sm sm:text-base bg-primary_blue-500 border hover:bg-primary_blue-600 focus:ring-4 focus:ring-primary_purple-300 font-medium rounded-2xl px-6 sm:px-8 py-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-zinc-400 disabled:text-zinc-200"
     >
       {pending ? "Saving..." : "Save items"}
     </button>

@@ -11,13 +11,14 @@ export default function EditListRow({ row, categories }) {
     focus:border-zinc-200 hover:border-zinc-200`;
 
   return (
-    <div className="grid grid-cols-[2fr_1fr_2fr_3fr_2fr] gap-2">
+    <div className="grid grid-cols-3 grid-rows-2 sm:grid-rows-1 sm:grid-cols-[2fr_1fr_2fr_3fr_2fr] gap-2">
       <input type="hidden" value={row.id} name="itemId" />
       {/* Category selection */}
       <Select
         name="category"
         options={cats}
         defaultValue={categories.get(row.categoryId)}
+        className="row-span-2 sm:row-span-1"
       />
       {/* Quantity */}
       <input
@@ -27,7 +28,7 @@ export default function EditListRow({ row, categories }) {
         min="0"
         step="0.1"
         placeholder="quantity"
-        className={inputClass}
+        className={`${inputClass} font-medium`}
       />
 
       {/* Unit */}
@@ -44,7 +45,7 @@ export default function EditListRow({ row, categories }) {
         defaultValue={row.name}
         name="name"
         placeholder="name"
-        className={inputClass}
+        className={`${inputClass} font-medium`}
       />
       {/* Notes */}
       <input

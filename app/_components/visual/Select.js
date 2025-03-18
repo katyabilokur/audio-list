@@ -1,6 +1,6 @@
 export default function Select({ options, name, defaultValue }) {
   return (
-    <div className="w-full max-w-sm min-w-[100px]">
+    <div className="w-full max-w-sm min-w-[100px] row-span-2 sm:row-span-1">
       <div className="relative">
         <select
           name={name}
