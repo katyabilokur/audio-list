@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import BackButton from "./BackButton";
 import BottomItemsNavigation from "./BottomItemsNavigation";
 import ItemRowView from "./ItemRowView";
@@ -9,13 +8,6 @@ import { useState } from "react";
 import PaperElement from "./visual/PaperElement";
 import * as IconSet from "hugeicons-react";
 import { capitalizeString } from "../_lib/dataHelpers";
-
-import { Kalam } from "next/font/google";
-
-const font = Kalam({
-  subsets: ["latin"],
-  weight: ["300", "400", "700"],
-});
 
 function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
   const [showExtraItems, setShowExtraItems] = useState(false);
@@ -55,7 +47,7 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
 
           <hr className="w-full h-[1.5px] mt-2 mb-[6px] bg-primary_rose-600 border-0"></hr>
           <hr className="w-full h-[1.5px] bg-primary_rose-600 border-0 mb-4"></hr>
-          <div className={`${font.className}`}>
+          <div>
             {itemsToShow.map((itemRow, index) => (
               <div key={`${itemRow.name}-${itemRow.id}`}>
                 <ItemRowView item={itemRow} />

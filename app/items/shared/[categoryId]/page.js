@@ -1,4 +1,5 @@
 import SharedItems from "@/app/_components/SharedItems";
+import Container from "@/app/_components/visual/Container";
 import { auth } from "@/app/_lib/auth";
 import {
   getCategoryById,
@@ -24,9 +25,9 @@ export default async function Page({ params }) {
   if (items.length === 0) notFound();
 
   //Check if there are categories with the same name to include items
-  const sameCategoryItems = [];
+  let sameCategoryItems = [];
 
-  if (categorySharedNames?.length > 0) {
+  if (categorySharedNames?.size > 0) {
     sameCategoryItems = await getSameCategoryItems(
       session.user.userId,
       categoryId,
@@ -38,12 +39,14 @@ export default async function Page({ params }) {
   //----
 
   return (
-    <SharedItems
-      sameCategoryItems={sameCategoryItems}
-      categoryDetails={categoryDetails}
-      items={items}
-      categorySharedNames={categorySharedNames}
-      categoryId={categoryId}
-    />
+    <Container className="relative z-0 min-h-[calc(100vh-64px)] sm:min-h-[calc(100vh-96px)] bg-primary_rose-100  flex flex-col">
+      <SharedItems
+        sameCategoryItems={sameCategoryItems}
+        categoryDetails={categoryDetails}
+        items={items}
+        categorySharedNames={categorySharedNames}
+        categoryId={categoryId}
+      />
+    </Container>
   );
 }

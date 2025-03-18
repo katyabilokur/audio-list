@@ -1,6 +1,13 @@
+import { Kalam } from "next/font/google";
+
+const font = Kalam({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+});
+
 function ItemRowView({ item }) {
   return (
-    <div className="flex gap-2 mx-8 text-zinc-600 text-lg">
+    <div className={`flex gap-2 mx-8 text-zinc-600 text-lg ${font.className}`}>
       <p>
         <span className="font-semibold text-zinc-800">
           {item.quantity === 0 ? "some" : item.quantity}{" "}
