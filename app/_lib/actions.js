@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "./auth";
-import { getCategories } from "./data-services";
+import { getCategories, getCategoryDetailsByName } from "./data-services";
 import { mapCategories } from "./dataHelpers";
 import { supabase } from "./supabase";
 import { z } from "zod";
@@ -73,7 +73,7 @@ export async function shareList(formData) {
 
   const { data, error } = await supabase
     .from("shares")
-    .insert([{ userId: userId, categoryId: catId.id, email }])
+    .insert([{ userId: userId, categoryId: catId, email }])
     .select();
 
   if (error) {

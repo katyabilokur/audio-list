@@ -66,7 +66,7 @@ function OwnItems({ sameCategoryItems, categoryDetails, items, categoryName }) {
             ))}
           </div>
         </PaperElement>
-        <BackButton className="mt-6 mx-auto" redirectPath={"/home"}>
+        <BackButton className="mt-6 mx-auto mb-20" redirectPath={"/home"}>
           Return Back
         </BackButton>
 

@@ -7,6 +7,7 @@ export default function BackButton({
   children,
   className,
   redirectPath = null,
+  colour = null,
 }) {
   function handleClick() {
     if (redirectPath) {
@@ -20,8 +21,10 @@ export default function BackButton({
 
   return (
     <button
-      className={`flex items-center gap-2 text-primary_tur-500 hover:text-primary_tur-400 text-base sm:text-lg font-semibold ${
+      className={`flex items-center gap-2 text-base sm:text-lg font-semibold ${
         className && className
+      } ${
+        colour ? colour : "text-primary_tur-500 hover:text-primary_tur-400 "
       }`}
       onClick={handleClick}
     >

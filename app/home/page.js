@@ -36,7 +36,7 @@ export default async function Home() {
   }
 
   return (
-    <Container className="min-h-[calc(100vh-5rem)] sm:min-h-[calc(100vh-6rem)] bg-primary_tur-25 flex flex-col  ">
+    <Container className="min-h-[calc(100vh-64px)] sm:min-h-[calc(100vh-96px)] bg-primary_tur-100 flex flex-col  ">
       <AudioContainer curUserId={curUserId}>
         <Card extraStyling="pt-4 pb-8 sm:py-8 px-4">
           {items.length > 0 ? (
