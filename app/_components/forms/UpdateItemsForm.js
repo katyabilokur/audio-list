@@ -5,8 +5,11 @@ import EditListRow from "./EditListRow";
 import { useFormStatus } from "react-dom";
 import BackButton from "../BackButton";
 import { useState } from "react";
+import PaperElement from "../visual/PaperElement";
+import * as IconSet from "hugeicons-react";
+import { capitalizeString } from "@/app/_lib/dataHelpers";
 
-function UpdateItemsForm({ list, categories }) {
+function UpdateItemsForm({ list, categories, categoryName }) {
   const [rows, setRows] = useState(list);
   const [removedIds, setRemovedIds] = useState([]);
 
@@ -15,19 +18,36 @@ function UpdateItemsForm({ list, categories }) {
     setRemovedIds((prev) => [...prev, id]);
   };
 
+  // const HugeIcon = IconSet[categoryDetails.icon];
+
   return (
     <form
       action={updateListItems}
       className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
     >
-      <div>
-        {rows.map((el) => (
-          <div className="flex gap-2" key={el.name}>
-            <EditListRow row={el} categories={categories} />
-            <button onClick={() => handleRemove(el.id)}>X</button>
+      <PaperElement>
+        <div className="flex gap-4 mb-2 mx-auto items-end">
+          {/* <HugeIcon className="w-8 h-8 text-primary_tur-500" /> */}
+          <h2 className="italic text-base sm:text-lg font-medium text-zinc-600">
+            Edit items from {capitalizeString(categoryName)}
+          </h2>
+        </div>
+
+        <hr className="w-full h-[1.5px] mt-2 mb-[6px] bg-primary_rose-600 border-0"></hr>
+        <hr className="w-full h-[1.5px] bg-primary_rose-600 border-0 mb-4"></hr>
+
+        {rows.map((el, index) => (
+          <div key={el.name}>
+            <div className="flex gap-2 px-4 sm:px-6">
+              <EditListRow row={el} categories={categories} />
+              <button onClick={() => handleRemove(el.id)}>X</button>
+            </div>
+            {index < rows.length - 1 && (
+              <hr className="w-full border-t border-primary_blue-300 my-2" />
+            )}
           </div>
         ))}
-      </div>
+      </PaperElement>
       <input
         type="hidden"
         name="removedIds"

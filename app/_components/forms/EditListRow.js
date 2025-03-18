@@ -1,24 +1,24 @@
 // "use client";
 
+import Select from "../visual/Select";
+
 export default function EditListRow({ row, categories }) {
   const cats = Array.from(categories.values());
+
+  const inputClass = `w-full bg-transparent placeholder:text-zinc-400 text-zinc-700 
+    text-sm border border-transparent rounded-md px-3
+    transition duration-300 ease focus:outline-none 
+    focus:border-zinc-200 hover:border-zinc-200`;
+
   return (
     <div className="flex gap-2">
       <input type="hidden" value={row.id} name="itemId" />
       {/* Category selection */}
-      <select
+      <Select
         name="category"
-        id="category"
+        options={cats}
         defaultValue={categories.get(row.categoryId)}
-        className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
-        required
-      >
-        {cats.map((cat) => (
-          <option value={cat} key={cat}>
-            {cat}
-          </option>
-        ))}
-      </select>
+      />
       {/* Quantity */}
       <input
         type="number"
@@ -26,7 +26,8 @@ export default function EditListRow({ row, categories }) {
         name="quantity"
         min="0"
         step="0.1"
-        className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+        placeholder="quantity"
+        className={inputClass}
       />
 
       {/* Unit */}
@@ -34,20 +35,23 @@ export default function EditListRow({ row, categories }) {
         type="text"
         defaultValue={row.unit}
         name="unit"
-        className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+        placeholder="unit"
+        className={inputClass}
       />
       {/* Name */}
       <input
         type="text"
         defaultValue={row.name}
         name="name"
-        className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+        placeholder="name"
+        className={inputClass}
       />
       {/* Notes */}
-      <textarea
+      <input
         defaultValue={row.note}
         name="note"
-        className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm"
+        placeholder="note"
+        className={inputClass}
       />
     </div>
   );

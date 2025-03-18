@@ -1,9 +1,9 @@
 import UpdateItemsForm from "@/app/_components/forms/UpdateItemsForm";
+import Container from "@/app/_components/visual/Container";
 import { auth } from "@/app/_lib/auth";
 import {
   getCategories,
   getItemsByCategoryName,
-  getItemsByFileId,
 } from "@/app/_lib/data-services";
 import { mapCategories } from "@/app/_lib/dataHelpers";
 
@@ -19,13 +19,17 @@ export default async function Page({ params }) {
   const categories = mapCategories(categoriesList);
 
   return (
-    <div className="max-w-6xl mx-auto mt-8">
-      {items.length > 0 && (
-        <>
-          <UpdateItemsForm list={items} categories={categories} />
-        </>
-      )}
-      {items.length === 0 && <p>No items to edit</p>}
-    </div>
+    <Container className="relative z-0 min-h-[calc(100vh-64px)] sm:min-h-[calc(100vh-96px)] bg-primary_blue-100  flex flex-col">
+      <div className="xs:w-[370px] w-96 sm:w-160 md:w-full mx-auto mt-8 px-4">
+        {items.length > 0 && (
+          <UpdateItemsForm
+            categoryName={parameters.categoryName}
+            list={items}
+            categories={categories}
+          />
+        )}
+        {items.length === 0 && <p>No items to edit</p>}
+      </div>
+    </Container>
   );
 }
