@@ -27,7 +27,9 @@ function UpdateItemsForm({ list, categories, categoryName }) {
       <PaperElement>
         <div className="flex gap-4 mb-2 mx-auto items-end">
           <h2 className="italic text-base sm:text-lg font-medium text-zinc-600">
-            Edit items from {capitalizeString(categoryName)} list
+            {categoryName
+              ? `Edit items from ${capitalizeString(categoryName)} list`
+              : "Check and update new added items"}
           </h2>
         </div>
 
