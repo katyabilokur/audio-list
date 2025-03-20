@@ -7,6 +7,14 @@ import { deleteItems, updateCartItem } from "../_lib/helpers";
 import BackButton from "./BackButton";
 import { redirect } from "next/navigation";
 import ConfirmationDialog from "./dialogs/ConfirmationDialog";
+import PaperElement from "./visual/PaperElement";
+import { TaskEdit01Icon } from "hugeicons-react";
+import { Kalam } from "next/font/google";
+
+const font = Kalam({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+});
 
 export default function AnimatedLists({
   categoryItems,
@@ -56,14 +64,24 @@ export default function AnimatedLists({
   }
 
   return (
-    <div className="flex gap-6 p-6 flex-col">
-      <div className="w-1/2 p-4 bg-gray-100 rounded-lg">
-        <div className="flex justify-between">
-          <p>To buy</p>
-          <p>
-            <span>{items.length}</span> items
+    <div className="flex gap-6 flex-col">
+      <PaperElement colour="bg-primary_red-50">
+        <div className="flex justify-between mb-2 px-6">
+          <div className="flex gap-4">
+            <TaskEdit01Icon className="h-8 text-primary_red-400" />
+            <h2 className="text-lg sm:text-xl font-medium text-zinc-600">
+              To buy
+            </h2>
+          </div>
+          <p className="text-zinc-700">
+            <span className="font-medium">{items.length}</span>{" "}
+            {items.length === 1 ? "item" : "items"}
           </p>
         </div>
+
+        <hr className="w-full h-[1.5px] mt-2 mb-[6px] bg-primary_rose-500 border-0"></hr>
+        <hr className="w-full h-[1.5px] bg-primary_rose-500 border-0 mb-2"></hr>
+
         <AnimatePresence>
           {items.map((item) => (
             <motion.div
@@ -73,14 +91,29 @@ export default function AnimatedLists({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="flex items-center gap-2 p-2 bg-white shadow-sm rounded"
+              className="flex items-center gap-4 p-3 border-b border-b-zinc-400"
             >
-              <input type="checkbox" onChange={() => toggleItem(item)} />
-              <span>{`${item.quantity} ${item.unit} ${item.note} ${item.name}`}</span>
+              <input
+                id={`to-buy-${item.id}`}
+                className="ml-3 sm:ml-6 h-5 w-5 peer cursor-pointer transition-all appearance-none rounded bg-primary_red-25  hover:bg-primary_red-300 border border-zinc-300 checked:bg-primary_red-400 checked:border-primary_red-400"
+                type="checkbox"
+                onChange={() => toggleItem(item)}
+              />
+              <label
+                htmlFor={`to-buy-${item.id}`}
+                className={`mr-3 sm:mr-6 text-lg cursor-pointer ${font.className}`}
+              >
+                <span className="font-semibold">{item.quantity} </span>
+                {`${item.unit} of `}
+                <span className="font-semibold">{item.name}</span>{" "}
+                {item.note && (
+                  <span className="italic text-zinc-500">{`(${item.note})`}</span>
+                )}
+              </label>
             </motion.div>
           ))}
         </AnimatePresence>
-      </div>
+      </PaperElement>
 
       <InCartList
         inCartItems={inCartItems}

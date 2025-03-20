@@ -1,7 +1,7 @@
 import ShoppingList from "@/app/_components/ShoppingList";
+import Container from "@/app/_components/visual/Container";
 import { auth } from "@/app/_lib/auth";
 import {
-  getCategoryById,
   getCategoryDetailsByName,
   getItemsByCategoryName,
   getSameCategoryItems,
@@ -43,14 +43,16 @@ export default async function Page({ params, searchParams }) {
   ]);
 
   return (
-    <ShoppingList
-      extraItems={sameCategoryItems}
-      showExtraItemsDefault={showExtraItems}
-      categorySharedNames={categorySharedNames}
-      categoryId={categoryDetails.id}
-      categoryDetails={categoryDetails}
-      items={categoryItems}
-      inCartItemsIds={inCartItemsId}
-    />
+    <Container className="relative z-0 min-h-[calc(100vh-64px)] sm:min-h-[calc(100vh-96px)] bg-white  flex flex-col">
+      <ShoppingList
+        extraItems={sameCategoryItems}
+        showExtraItemsDefault={showExtraItems}
+        categorySharedNames={categorySharedNames}
+        categoryId={categoryDetails.id}
+        categoryDetails={categoryDetails}
+        items={categoryItems}
+        inCartItemsIds={inCartItemsId}
+      />
+    </Container>
   );
 }

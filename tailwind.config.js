@@ -51,6 +51,7 @@ module.exports = {
           600: "#c5443d",
         },
         primary_red: {
+          25: "#FFF9F7",
           50: "#fff4ee", //main light
           100: "#ffe4d5",
           200: "#fec6aa",
