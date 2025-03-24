@@ -15,7 +15,7 @@ function UpdateItemsForm({ list, categories, categoryName }) {
   const [removedIds, setRemovedIds] = useState([]);
 
   const handleRemove = (id) => {
-    setRows((prev) => list.filter((row) => row.id !== id));
+    setRows((prev) => prev.filter((row) => row.id !== id));
     setRemovedIds((prev) => [...prev, id]);
   };
 
@@ -36,24 +36,25 @@ function UpdateItemsForm({ list, categories, categoryName }) {
         <hr className="w-full h-[1.5px] mt-2 mb-[6px] bg-primary_rose-600 border-0"></hr>
         <hr className="w-full h-[1.5px] bg-primary_rose-600 border-0 mb-4"></hr>
 
-        {rows.map((el, index) => (
-          <div key={el.name}>
-            <div className="flex gap-2 px-3 sm:px-6">
-              <EditListRow row={el} categories={categories} />
-              <button
-                data-tooltip-id="delete"
-                data-tooltip-content="Delete item"
-                onClick={() => handleRemove(el.id)}
-              >
-                <XMarkIcon className="h-4 sm:h-5 text-zinc-600 hover:text-primary_purple-600 " />
-              </button>
-              <TooltipInfo id="delete" />
+        {rows.length > 0 &&
+          rows.map((el, index) => (
+            <div key={el.name}>
+              <div className="flex gap-2 px-3 sm:px-6">
+                <EditListRow row={el} categories={categories} />
+                <button
+                  data-tooltip-id="delete"
+                  data-tooltip-content="Delete item"
+                  onClick={() => handleRemove(el.id)}
+                >
+                  <XMarkIcon className="h-4 sm:h-5 text-zinc-600 hover:text-primary_purple-600 " />
+                </button>
+                <TooltipInfo id="delete" />
+              </div>
+              {index < rows.length - 1 && (
+                <hr className="w-full border-t border-primary_blue-300 my-2" />
+              )}
             </div>
-            {index < rows.length - 1 && (
-              <hr className="w-full border-t border-primary_blue-300 my-2" />
-            )}
-          </div>
-        ))}
+          ))}
       </PaperElement>
       <input
         type="hidden"
