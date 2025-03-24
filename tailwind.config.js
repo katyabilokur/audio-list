@@ -11,8 +11,12 @@ module.exports = {
         xs: "360px",
       },
       colors: {
-        //TODO: #6ed6bc  add green
         //NOTE: for text use Tailwind 'zinc' colour
+        primary_green: {
+          300: "#6ed6bc",
+          400: "#44bda3",
+          500: "#2aa28a",
+        },
         primary_tur: {
           25: "#fbfefd",
           50: "#f1faf9",

@@ -41,7 +41,7 @@ function ShoppingList({
         />
       )}
       <div className="max-w-6xl mx-auto mt-4 sm:mt-8 p-4 sm:p-6">
-        <h2 className="mb-4 sm:mb-6">
+        <h2 className="mb-4 sm:mb-6 text-center">
           Start shopping for{" "}
           <span className="font-medium">
             {capitalizeString(categoryDetails.name)}

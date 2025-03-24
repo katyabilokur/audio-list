@@ -95,7 +95,9 @@ export default function AnimatedLists({
             >
               <input
                 id={`to-buy-${item.id}`}
-                className="ml-3 sm:ml-6 h-5 w-5 peer cursor-pointer transition-all appearance-none rounded bg-primary_red-25  hover:bg-primary_red-300 border border-zinc-300 checked:bg-primary_red-400 checked:border-primary_red-400"
+                // className="ml-3 sm:ml-6 h-5 w-5 peer cursor-pointer transition-all appearance-none rounded bg-primary_red-25  hover:bg-primary_red-300 border border-zinc-300 checked:bg-primary_red-400 checked:border-primary_red-400"
+                className="ml-3 sm:ml-6 h-5 w-5 peer cursor-pointer transition-all appearance-none rounded bg-primary_red-25 hover:bg-primary_red-300 border border-zinc-300 checked:bg-primary_red-400 checked:border-primary_red-400 relative 
+  before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:text-white before:content-['✔'] before:opacity-0 checked:before:opacity-100"
                 type="checkbox"
                 onChange={() => toggleItem(item)}
               />
@@ -121,11 +123,14 @@ export default function AnimatedLists({
         itemsToBuy={items.length}
       />
 
-      <div className="flex gap-2">
-        <BackButton>Go Back</BackButton>
+      <div className="flex justify-end align-middle gap-8 mb-4 sm:mb-6">
+        <BackButton colour="text-primary_blue-500 hover:text-primary_blue-400">
+          Go Back
+        </BackButton>
         <button
           onClick={handleFinishShopping}
           disabled={inCartItems.length === 0}
+          className="text-white text-sm sm:text-base bg-primary_blue-500 border hover:bg-primary_blue-600 focus:ring-4 focus:ring-primary_purple-300 font-medium rounded-2xl px-6 sm:px-8 py-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-zinc-400 disabled:text-zinc-200"
         >
           Finish shopping
         </button>
