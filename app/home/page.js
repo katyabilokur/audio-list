@@ -17,6 +17,7 @@ export const metadata = {
 export default async function Home() {
   const session = await auth();
   const curUserId = session?.user.userId;
+  const curUserLan = session?.user.language;
 
   const items = await getUserItems(curUserId);
   const catList = Array.from(new Set(items.map((el) => el.categoryId)));
@@ -37,7 +38,7 @@ export default async function Home() {
 
   return (
     <Container className="min-h-[calc(100vh-64px)] sm:min-h-[calc(100vh-96px)] bg-primary_tur-100 flex flex-col  ">
-      <AudioContainer curUserId={curUserId}>
+      <AudioContainer curUserId={curUserId} language={curUserLan}>
         <Card extraStyling="pt-4 pb-8 sm:py-8 px-4">
           {items.length > 0 ? (
             <ShoppingLists

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { AssemblyAI } from "assemblyai";
 
 export async function POST(request) {
-  const { audioUrl } = await request.json();
+  const { audioUrl, language } = await request.json();
 
   if (!audioUrl) {
     return NextResponse.json(
@@ -17,6 +17,7 @@ export async function POST(request) {
 
   const params = {
     audio: audioUrl,
+    language_code: language,
   };
 
   const transcript = await client.transcripts.transcribe(params);

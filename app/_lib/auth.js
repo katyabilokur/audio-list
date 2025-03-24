@@ -28,7 +28,8 @@ const authConfig = {
     },
     async session({ session, user }) {
       const curUser = await getUser(session.user.email);
-      session.user.userId = curUser.id; //NOTE: Got our user Id from the Supabase to use it in other places
+      session.user.userId = curUser.id;
+      session.user.language = curUser.language;
       return session;
     },
   },

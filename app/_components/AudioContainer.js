@@ -4,7 +4,7 @@ import { useState } from "react";
 import AudioRecorder from "./AudioRecorder";
 import SpinnerWithText from "./SpinnerWithText";
 
-export default function AudioContainer({ children, curUserId }) {
+export default function AudioContainer({ children, curUserId, language }) {
   const [processingStatus, setProcessingStatus] = useState(false);
   const [processingType, setProcessingType] = useState("");
 
@@ -17,6 +17,7 @@ export default function AudioContainer({ children, curUserId }) {
           setProcessingType={setProcessingType}
           className="mt-auto"
           userId={curUserId}
+          language={language}
         />
       </div>
       {processingStatus && (

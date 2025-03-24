@@ -18,7 +18,12 @@ import { redirect } from "next/navigation";
 
 const mimeType = "audio/webm";
 
-const AudioRecorder = ({ userId, setProcessingStatus, setProcessingType }) => {
+const AudioRecorder = ({
+  userId,
+  setProcessingStatus,
+  setProcessingType,
+  language,
+}) => {
   const [permission, setPermission] = useState(false);
   const [stream, setStream] = useState(null);
 
@@ -83,7 +88,7 @@ const AudioRecorder = ({ userId, setProcessingStatus, setProcessingType }) => {
         //If file is created and saved begging data processing
         //3. Transcribe audio to text with Assembly AI
         setProcessingType("Transcribing audio to text...");
-        const recordedText = await transcribeAudio(url.publicUrl);
+        const recordedText = await transcribeAudio(url.publicUrl, language);
         //TEST DATA
         // const recordedText = "a kid's book, some liquid to wash the floor";
 

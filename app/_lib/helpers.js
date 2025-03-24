@@ -37,13 +37,13 @@ export async function deleteFileFromStorage(url) {
   return;
 }
 
-export async function transcribeAudio(publicUrl) {
+export async function transcribeAudio(publicUrl, language) {
   const response = await fetch("/api/transcribe-audio", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ audioUrl: publicUrl }),
+    body: JSON.stringify({ audioUrl: publicUrl, language }),
   });
 
   const data = await response.json();
