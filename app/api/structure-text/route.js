@@ -26,7 +26,8 @@ Instructions:
    - Additional notes (if any)
 3. Format the output as CSV with the following columns in this order:
    type,quantity,unit,product name,note
-4. Follow these rules:
+4. For the result data keep the original text language. Translate suggested Units to the language of the original text (for example "Item" unit in "UK" text will be "Штука"). Please note, when text is not in English, Name and Units cannot have the same value. If Units are not recognized, leave Units empty.
+5. Follow these rules:
    - Do not include a header row in the CSV output.
    - The type and product name columns must not be empty.
    - Other columns can be empty if the information is not provided.

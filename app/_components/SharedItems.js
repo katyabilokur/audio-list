@@ -68,7 +68,7 @@ function SharedItems({
           ))}
         </div>
       </PaperElement>
-      <BackButton className="mt-6 mx-auto mb-20" redirectPath={"/home"}>
+      <BackButton className="mt-6 mx-auto mb-24" redirectPath={"/home"}>
         Return Back
       </BackButton>
       <BottomItemsNavigationShared
