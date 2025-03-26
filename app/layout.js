@@ -22,7 +22,6 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const session = await auth();
-  // const language = session?.user.language || "en";
 
   const locale = await getLocale();
 

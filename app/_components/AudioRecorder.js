@@ -14,6 +14,7 @@ import {
   uploadFileToStorage,
 } from "../_lib/helpers";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const mimeType = "audio/webm";
 
@@ -32,6 +33,8 @@ const AudioRecorder = ({
   const [audio, setAudio] = useState(null);
 
   const router = useRouter();
+
+  const t = useTranslations("Home");
 
   const getMicrophonePermission = async () => {
     if ("MediaRecorder" in window) {
@@ -69,7 +72,7 @@ const AudioRecorder = ({
 
   const stopRecording = async () => {
     setProcessingStatus(true);
-    setProcessingType("Creating an audio record...");
+    setProcessingType(`${t("creatingAudio")}`);
     setRecordingStatus("inactive");
 
     //Stops the recording instance
@@ -79,18 +82,18 @@ const AudioRecorder = ({
       const audioBlob = new Blob(audioChunks, { type: mimeType });
 
       //2. Save recording file to the storage
-      setProcessingType("Saving audio record...");
+      setProcessingType(`${t("savingAudio")}`);
       const url = await uploadFileToStorage(audioBlob, userId);
       if (url.publicUrl) {
         //If file is created and saved begging data processing
         //3. Transcribe audio to text with Assembly AI
-        setProcessingType("Transcribing audio to text...");
+        setProcessingType(`${t("transcribingAudio")}`);
         const recordedText = await transcribeAudio(url.publicUrl, language);
         //TEST DATA
         // const recordedText = "a kid's book, some liquid to wash the floor";
 
         //4. Text structuring with Anthropic AI. Returns text in csv limited format
-        setProcessingType("Structuring your recorder data...");
+        setProcessingType(`${t("structuringData")}`);
         const csvText = await structureText(recordedText, userId);
         //TEST DATA
         // const csvText =
@@ -102,16 +105,16 @@ const AudioRecorder = ({
         //   "grocery,2,liters,milk,big";
 
         //5. Split csv text and save result to the DB Items table
-        setProcessingType("Saving shopping lists...");
+        setProcessingType(`${t("savingList")}`);
         const urlId = url.publicUrl.split("/").at(-1).split(".")[0];
         await insertNewItems(csvText, userId, urlId);
 
         //6. Clear audioChunks and file from the storage
-        setProcessingType("Cleaning audio storage...");
+        setProcessingType(`${t("cleaningAudio")}`);
         setAudioChunks([]);
         await deleteFileFromStorage(url.publicUrl);
 
-        setProcessingType("Redirecting to confirm new items...");
+        setProcessingType(`${t("redirectingToReview")}`);
         router.push(`/review/${urlId}`);
       }
 
@@ -133,9 +136,7 @@ const AudioRecorder = ({
             >
               <LockClosedIcon className="h-8 w-8" />
             </RecordButton>
-            <h4 className="text-zinc-700 text-lg">
-              Please get permissions to use your microphone
-            </h4>
+            <h4 className="text-zinc-700 text-lg">{t("getPermissions")}</h4>
           </>
         ) : null}
         {permission && recordingStatus === "inactive" ? (
@@ -147,9 +148,7 @@ const AudioRecorder = ({
             >
               <MicrophoneIcon className="h-8 w-8" />
             </RecordButton>
-            <h4 className="text-zinc-700 text-lg">
-              Start recording your shopping list
-            </h4>
+            <h4 className="text-zinc-700 text-lg">{t("startRecording")}</h4>
           </>
         ) : null}
         {recordingStatus === "recording" ? (
@@ -162,7 +161,9 @@ const AudioRecorder = ({
               <span className="animate-beat-two absolute inline-flex h-full w-full rounded-full bg-rose-500"></span>
               <StopIcon className="h-8 w-8 absolute inline-flex" />
             </RecordButton>
-            <h4 className="text-zinc-700 text-lg">Recording in progress</h4>
+            <h4 className="text-zinc-700 text-lg">
+              {t("recordingInProgress")}
+            </h4>
           </>
         ) : null}
 

@@ -1,11 +1,15 @@
+"use client";
 import Link from "next/link";
 import { capitalizeString } from "../_lib/dataHelpers";
 import * as IconSet from "hugeicons-react";
+import { useTranslations } from "next-intl";
 
 function ShoppingListsItem({ category, items, urlPath, sharerName }) {
   const curItems = items.filter((el) => el.categoryId === category.id);
 
   const HugeIcon = IconSet[category.icon];
+
+  const t = useTranslations("General");
 
   return (
     <Link
@@ -19,11 +23,14 @@ function ShoppingListsItem({ category, items, urlPath, sharerName }) {
         </span>
         {"  "}
         &ndash;{"  "}
-        {curItems.length} {curItems.length === 1 ? "item" : "items"}
+        {curItems.length}{" "}
+        {curItems.length === 1 ? `${t("item")}` : `${t("items")}`}
       </p>
 
       {sharerName && (
-        <span className="italic text-zinc-400">(by {sharerName})</span>
+        <span className="italic text-zinc-400">
+          {`${t("by")} ${sharerName}`}
+        </span>
       )}
     </Link>
   );

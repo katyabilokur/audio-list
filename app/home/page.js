@@ -1,4 +1,3 @@
-import AudioRecorder from "../_components/AudioRecorder";
 import Container from "../_components/visual/Container";
 import ShoppingLists from "../_components/ShoppingLists";
 import { auth } from "../_lib/auth";
@@ -9,6 +8,7 @@ import {
 } from "../_lib/data-services";
 import Card from "../_components/visual/Card";
 import AudioContainer from "../_components/AudioContainer";
+import HomeEmptyLists from "../_components/textElements/HomeEmptyLists";
 
 export const metadata = {
   title: "Home",
@@ -44,13 +44,10 @@ export default async function Home() {
             <ShoppingLists
               categories={categories}
               items={items}
-              title="My shopping lists"
+              title="myLists"
             />
           ) : (
-            <p className="text-base sm:text-xl text-zinc-500 mb-3">
-              You do not have any items to buy yet. Start recording to add to
-              your existing categories
-            </p>
+            <HomeEmptyLists />
           )}
         </Card>
         {sharedItems?.length > 0 && (
@@ -60,7 +57,7 @@ export default async function Home() {
               sharedNames={categorySharedNames}
               categories={sharedCategories}
               items={sharedItems}
-              title="Lists shared with me"
+              title="sharedLists"
             />
           </Card>
         )}

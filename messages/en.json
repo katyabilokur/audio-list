@@ -1,5 +1,26 @@
 {
   "Navigation": {
     "myAccount": "My Account"
+  },
+  "Home": {
+    "myLists": "My shopping lists",
+    "sharedLists": "Lists shared with me",
+    "getPermissions": "Please get permissions to use your microphone",
+    "startRecording": "Start recording your shopping list",
+    "recordingInProgress": "Recording in progress",
+    "emptyLists": "You do not have any items to buy yet. Start recording to add to your existing categories",
+    "creatingAudio": "Creating an audio record...",
+    "savingAudio": "Saving audio record...",
+    "transcribingAudio": "Transcribing audio to text...",
+    "structuringData": "Structuring your recorder data...",
+    "savingList": "Saving shopping lists...",
+    "cleaningAudio": "Cleaning audio storage...",
+    "redirectingToReview": "Redirecting to confirm new items..."
+  },
+  "General": {
+    "by": "by",
+    "of": "of",
+    "items": "items",
+    "item": "item"
   }
 }
