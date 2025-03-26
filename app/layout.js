@@ -2,6 +2,9 @@ import "@/app/_styles/globals.css";
 import Navigation from "./_components/Navigation";
 import { auth } from "./_lib/auth";
 
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
+
 import { Poppins } from "next/font/google";
 
 const font = Poppins({
@@ -19,16 +22,21 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const session = await auth();
+  // const language = session?.user.language || "en";
+
+  const locale = await getLocale();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${font.className} antialiased min-h-screen flex flex-col`}
       >
-        {session?.user && (
-          <Navigation image={session.user.image} name={session.user.name} />
-        )}
-        {/* <main className="h-[calc(100vh-5rem)] w-160 mx-auto">{children}</main> */}
-        <main className="">{children}</main>
+        <NextIntlClientProvider>
+          {session?.user && (
+            <Navigation image={session.user.image} name={session.user.name} />
+          )}
+          <main>{children}</main>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
