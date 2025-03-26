@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import InCartList from "./InCartList";
 import { deleteItems, updateCartItem } from "../_lib/helpers";
 import BackButton from "./BackButton";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import ConfirmationDialog from "./dialogs/ConfirmationDialog";
 import PaperElement from "./visual/PaperElement";
 import { TaskEdit01Icon } from "hugeicons-react";
@@ -21,6 +21,7 @@ export default function AnimatedLists({
   alreadyInCartIds,
   extraItems,
 }) {
+  const router = useRouter();
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [items, setItems] = useState(() =>
     categoryItems.filter((item) => !alreadyInCartIds.includes(item.id))
@@ -139,7 +140,7 @@ export default function AnimatedLists({
       <ConfirmationDialog
         isOpen={isConfirmationOpen}
         text={`You bought ${inCartItems.length} items. Shopping is finished`}
-        onClose={() => redirect("/home")}
+        onClose={() => router.push("/hone")}
       />
     </div>
   );

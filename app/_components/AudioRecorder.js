@@ -13,8 +13,7 @@ import {
   transcribeAudio,
   uploadFileToStorage,
 } from "../_lib/helpers";
-import SpinnerWithText from "./SpinnerWithText";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const mimeType = "audio/webm";
 
@@ -32,9 +31,7 @@ const AudioRecorder = ({
   const [audioChunks, setAudioChunks] = useState([]);
   const [audio, setAudio] = useState(null);
 
-  //audio recording processing
-  // const [processingStatus, setProcessingStatus] = useState(false);
-  // const [processingType, setProcessingType] = useState("");
+  const router = useRouter();
 
   const getMicrophonePermission = async () => {
     if ("MediaRecorder" in window) {
@@ -113,9 +110,9 @@ const AudioRecorder = ({
         setProcessingType("Cleaning audio storage...");
         setAudioChunks([]);
         await deleteFileFromStorage(url.publicUrl);
-        setProcessingStatus(false);
 
-        redirect(`/review/${urlId}`);
+        setProcessingType("Redirecting to confirm new items...");
+        router.push(`/review/${urlId}`);
       }
 
       //Part1: creates a playable URL from the blob file. Can be downloaded or played if needed. So far removed

@@ -1,6 +1,6 @@
 "use client";
 
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 export default function BackButton({
@@ -9,9 +9,10 @@ export default function BackButton({
   redirectPath = null,
   colour = null,
 }) {
+
   function handleClick() {
     if (redirectPath) {
-      redirect(redirectPath);
+      router.push(redirectPath);
     } else {
       router.back();
     }
