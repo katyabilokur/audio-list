@@ -21,6 +21,12 @@
     "by": "by",
     "of": "of",
     "items": "items",
-    "item": "item"
+    "item": "item",
+    "add": "Add",
+    "or": "OR"
+  },
+  "Forms": {
+    "addItemsManuallyText": "Type items you want to add to your shopping lists",
+    "addItemsManuallyPlaceholder": "1 kg bananas, 2 new books for BD present, 2 bottles milk..."
   }
 }
