@@ -35,7 +35,6 @@ export default function AudioContainer({ children, curUserId, language }) {
         setProcessingStatus={setProcessingStatus}
         setProcessingType={setProcessingType}
         userId={curUserId}
-        language={language}
       />
       {processingStatus && (
         <div className="absolute inset-0 flex items-center justify-center bg-white/30 backdrop-blur-sm z-50">
