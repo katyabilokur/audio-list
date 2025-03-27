@@ -27,6 +27,9 @@
   },
   "Forms": {
     "addItemsManuallyText": "Type items you want to add to your shopping lists",
-    "addItemsManuallyPlaceholder": "1 kg bananas, 2 new books for BD present, 2 bottles milk..."
+    "addItemsManuallyPlaceholder": "1 kg bananas, 2 new books for BD present, 2 bottles milk...",
+    "addItemsManuallyValidationEmpty": "Please type items you want to buy in the future",
+    "addItemsManuallyValidationPattern": "Invalid characters detected. Please type only simple text like '1 potato, 3.5 kg sugar...'",
+    "addItemsManuallyValidationHarmful": "Potentially harmful content detected"
   }
 }

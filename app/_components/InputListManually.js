@@ -11,7 +11,7 @@ export default function InputListManually({
   userId,
 }) {
   const t = useTranslations("General");
-  const h = useTranslations("Forms");
+  const f = useTranslations("Forms");
   const ht = useTranslations("Home");
 
   const router = useRouter();
@@ -23,9 +23,9 @@ export default function InputListManually({
     const allowedPattern =
       /^[\u0041-\u005A\u0061-\u007A\u00C0-\u024F\u0370-\u03FF\u0400-\u04FF\u0530-\u1FFF\u2C00-\u2C5F\u1F00-\u1FFF\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FFF\uAC00-\uD7AF\u1F300-\u1F64F\u2000-\u206F\u2E80-\u2EFF\u3000-\u303F\uFF00-\uFFEF\u0030-\u0039\s,.:\"'\-+%;()\[\]]*$/;
     const text = itemsText.trim();
-    if (!text) return "Please type items you want to buy in the future";
+    if (!text) return f("addItemsManuallyValidationEmpty");
     if (!allowedPattern.test(text))
-      return "Invalid characters detected. Please type only simple text like '1 potato, 3.5 kg sugar...'";
+      return f("addItemsManuallyValidationPattern");
 
     const blockedPatterns = [
       /<[^>]*>/, // Blocks HTML tags like <script>, <img>, etc.
@@ -36,7 +36,7 @@ export default function InputListManually({
 
     for (const pattern of blockedPatterns) {
       if (pattern.test(text)) {
-        return "Potentially harmful content detected";
+        return f("addItemsManuallyValidationHarmful");
       }
     }
 
@@ -83,7 +83,7 @@ export default function InputListManually({
         className="flex flex-col items-center gap-3"
       >
         <p className="mb-2 text-zinc-700 text-lg">
-          {h("addItemsManuallyText")}
+          {f("addItemsManuallyText")}
         </p>
         <p className="text-primary_rose-500 text-start">{error}</p>
         <textarea
@@ -91,7 +91,7 @@ export default function InputListManually({
           name="text"
           onChange={handleTextChange}
           className="block p-2.5 w-full sm:w-96 text-base bg-zinc-50 rounded-lg border border-zinc-300 focus:text-primary_tur-700 focus:ring-2 focus:ring-primary_tur-300 focus:outline-none"
-          placeholder={h("addItemsManuallyPlaceholder")}
+          placeholder={f("addItemsManuallyPlaceholder")}
         ></textarea>
 
         <button

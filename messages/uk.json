@@ -27,6 +27,9 @@
   },
   "Forms": {
     "addItemsManuallyText": "Напишіть товари, які ви хочете додати до списку покупок",
-    "addItemsManuallyPlaceholder": "1 кг бананів, 2 нові книги на день народження, 2 пляшки молока..."
+    "addItemsManuallyPlaceholder": "1 кг бананів, 2 нові книги на день народження, 2 пляшки молока...",
+    "addItemsManuallyValidationEmpty": "Будь ласка, напишіть товари, які ви хочете купити",
+    "addItemsManuallyValidationPattern": "Виявлено недопустимі символи. Будь ласка, вводьте лише простий текст на кшталт '1 картоплина, 3.5 кг цукру...'",
+    "addItemsManuallyValidationHarmful": "Виявлено потенційно шкідливий вміст"
   }
 }
